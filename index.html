@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVP | Nate Vu Private Coaching</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #050505;
+            --card-bg: #121212;
+            --text-light: #f4f4f4;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; line-height: 1.6;
+            overflow-x: hidden; 
+        }
+
+        /* Zalo Float */
+        .zalo-float {
+            position: fixed; bottom: 30px; right: 20px; z-index: 999;
+            background: #0068ff; color: white; padding: 12px 20px;
+            border-radius: 50px; text-decoration: none; font-weight: 700;
+            font-size: 0.9rem; display: flex; align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 104, 255, 0.4);
+        }
+
+        header {
+            height: 65vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center; border-bottom: 2px solid var(--gold);
+        }
+
+        header h1 { font-size: clamp(3.5rem, 12vw, 5rem); color: var(--gold); margin: 0; letter-spacing: 8px; }
+        header p { letter-spacing: 4px; text-transform: uppercase; color: var(--text-dim); font-size: 0.9rem; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+
+        /* Giới thiệu */
+        .about-section { border-left: 2px solid var(--gold); padding-left: 25px; margin-bottom: 60px; }
+        .about-section h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-weight: 800; }
+        .about-section p { font-size: 1.1rem; color: var(--text-dim); font-weight: 300; text-align: justify; }
+
+        .time-notice {
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold);
+            padding: 25px; text-align: center; margin-bottom: 60px; border-radius: 8px; font-size: 1.1rem;
+        }
+        .time-notice b { color: var(--gold); }
+
+        /* Túi đồ */
+        .bag-section { margin-bottom: 80px; text-align: center; }
+        .bag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 40px; }
+        .bag-item { background: #0a0a0a; padding: 30px; border-radius: 10px; border: 1px dashed #333; }
+        .bag-item span { display: block; font-size: 2.5rem; margin-bottom: 15px; }
+        .bag-item h4 { margin: 10px 0; color: var(--gold); font-size: 1.2rem; }
+        .bag-item p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+
+        /* Các gói tập */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 80px; }
+        .card { background: var(--card-bg); padding: 40px 30px; border-radius: 4px; border: 1px solid #222; }
+        .card.featured { border-color: var(--gold); }
+        .card h3 { color: #fff; font-size: 1.6rem; margin: 0 0 10px 0; text-transform: uppercase; }
+        .price { font-size: 1.8rem; font-weight: 800; color: var(--gold); margin-bottom: 20px; }
+        .features { list-style: none; padding: 0; color: var(--text-dim); font-size: 0.95rem; }
+        .features li { margin-bottom: 12px; padding-left: 20px; position: relative; }
+        .features li::before { content: "•"; color: var(--gold); position: absolute; left: 0; }
+
+        /* Bảng giá (Mặc định Desktop) */
+        .table-container { width: 100%; border-radius: 8px; border: 1px solid #222; overflow: hidden; background: var(--card-bg); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 20px 15px; border-bottom: 1px solid #222; text-align: center; }
+        th { background: #000; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+        th:first-child, td:first-child { text-align: left; }
+        .sub-th { display: block; font-size: 0.7rem; font-weight: 400; color: var(--text-dim); text-transform: none; margin-top: 4px; }
+
+        /* Liên hệ (Mặc định Desktop) */
+        .contact-section { text-align: center; padding: 100px 20px; background: #0a0a0a; border-top: 1px solid #222; }
+        .contact-title { font-size: 3.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-weight: 800; letter-spacing: 3px; }
+        .contact-info { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 5px; }
+        .phone-number { display: block; font-size: 2.5rem; font-weight: 800; color: var(--gold); margin-bottom: 40px; }
+        
+        .fb-btn {
+            display: inline-flex; align-items: center; background: #1877F2; color: white;
+            padding: 18px 45px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+        }
+        .fb-btn svg { width: 22px; height: 22px; margin-right: 15px; fill: white; }
+
+        footer { text-align: center; padding: 50px; color: #444; font-size: 0.85rem; letter-spacing: 1px; }
+
+        .mobile-br { display: none; } /* Mặc định ngắt dòng tàng hình trên Desktop */
+
+        /* ============================================================
+           MOBILE CUSTOIMZATION (CHỈ SỬA HIỂN THỊ KHI XEM TRÊN ĐIỆN THOẠI)
+           ============================================================ */
+        @media (max-width: 480px) {
+            .mobile-br { display: block; } /* Bật ngắt dòng trên điện thoại */
+            
+            /* Tiêu đề 2 dòng */
+            .about-section h2 { font-size: 1.8rem; line-height: 1.2; }
+            
+            /* Gói VIP (3 Tháng) xuống dòng */
+            .card h3 .vip-time { display: block; margin-top: 5px; font-size: 1rem; }
+
+            /* Bảng giá Tối ưu hiển thị chữ Mobile */
+            table { table-layout: fixed; font-size: 0.78rem; }
+            th, td { padding: 15px 5px; }
+            th:nth-child(1), td:nth-child(1) { width: 33%; padding-left: 10px; } /* Gói buổi */
+            th:nth-child(2), td:nth-child(2) { width: 30%; } /* Đơn giá */
+            th:nth-child(3), td:nth-child(3) { width: 37%; text-align: right; padding-right: 10px; } /* Tổng Đầu Tư */
+            
+            /* Ép Đơn Giá hiển thị 1 dòng */
+            .mobile-nowrap { white-space: nowrap; }
+
+            .sub-th { font-size: 0.58rem; }
+
+            /* Liên hệ 2 dòng và Số điện thoại */
+            .contact-title { font-size: 2rem; line-height: 1.2; margin-bottom: 25px; }
+            .phone-number { font-size: 1.8rem; margin-bottom: 30px; }
+            
+            /* Nút FB ép trên 1 dòng */
+            .fb-btn { padding: 15px 20px; font-size: 0.95rem; white-space: nowrap; }
+            .fb-btn svg { width: 18px; height: 18px; margin-right: 10px; }
+            
+            .bag-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 3.2rem; }
+            .container { padding: 40px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://zalo.me/0358913420" target="_blank" class="zalo-float">
+        <span style="margin-right:8px">💬</span> Tư vấn Zalo
+    </a>
+
+    <header>
+        <h1>NVP</h1>
+        <p>Nate Vu Private Coaching</p>
+    </header>
+
+    <div class="container">
+        <div class="about-section">
+            <h2>Kiến Trúc Sư <br class="mobile-br"> Hình Thể</h2>
+            <p>
+                <strong>Sức khỏe không phải là sự đánh đổi, mà là sự cộng hưởng.</strong><br><br>
+                Tôi là <strong>Nate Vu (Vũ Đức Nghĩa)</strong>. Với hành trình 7 năm kinh nghiệm Fitness và 5 năm chuyên sâu Đào tạo trực tuyến, triết lý của tôi rất đơn giản: Tập luyện phải là một phần của niềm vui, không phải là gánh nặng xáo trộn cuộc sống của bạn.<br><br>
+                Thay vì ép bạn vào một khuôn khổ khắc nghiệt, tôi chọn cách mang vận động hòa quyện vào nhịp sống cá nhân. Dù mục tiêu của bạn là tăng cân, giảm mỡ, hay kiến tạo một thể chất bền bỉ, tôi sẽ đồng hành cùng bạn xây dựng một nền tảng vững chắc về kỹ thuật và tư duy dinh dưỡng "đúng - đủ". <br><br>
+                Sau lộ trình cùng NVP, thứ bạn nhận được không chỉ là một hình thể mới, mà là <strong>kiến thức và thói quen bền vững</strong> để bạn tự tin làm chủ sức khỏe của chính mình suốt đời.
+            </p>
+        </div>
+
+        <div class="time-notice">
+            <b>Cam kết NVP:</b> Chúng tôi tính phí theo buổi tập, <b>không giới hạn thời gian</b> cho mỗi buổi. 
+            Phiên tập chỉ kết thúc khi bạn hoàn thành trọn vẹn mục tiêu giáo án đề ra cho ngày hôm đó.
+        </div>
+
+        <div class="bag-section">
+            <h2 style="color:var(--gold); text-transform: uppercase; font-size: 1.8rem; letter-spacing: 2px;">Trong Túi Đồ Của NVP Có Gì?</h2>
+            <div class="bag-grid">
+                <div class="bag-item">
+                    <span>📋</span>
+                    <h4>Lộ Trình Riêng</h4>
+                    <p>Khách đăng ký sẽ nhận được Lịch ăn, Lịch tập & Bảng theo dõi thông số cá nhân hóa.</p>
+                </div>
+                <div class="bag-item">
+                    <span>📱</span>
+                    <h4>Kết Nối 24/7</h4>
+                    <p>Sử dụng Facebook Messenger & Zalo để hỗ trợ, nhắc nhở và giải đáp thắc mắc hàng ngày.</p>
+                </div>
+                <div class="bag-item">
+                    <span>🎥</span>
+                    <h4>Phòng Tập Ảo</h4>
+                    <p>Google Meet (Video Call) để cùng đi tập và sửa lỗi kỹ thuật trực tiếp tại địa điểm của bạn.</p>
+                </div>
+                <div class="bag-item">
+                    <span>💪</span>
+                    <h4>Nền Tảng Vững</h4>
+                    <p>Kiến thức chuẩn xác giúp bạn duy trì thói quen tập luyện dễ dàng bằng chính thực lực của mình.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Các Gói Lộ Trình</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Khởi Đầu <span class="vip-time">(1 Tháng)</span></h3>
+                <div class="price">5.000.000₫</div>
+                <ul class="features">
+                    <li>Không giới hạn thời gian mỗi buổi tập</li>
+                    <li>Xây dựng kỹ thuật & tư duy chuẩn</li>
+                    <li>Cá nhân hóa lịch tập & dinh dưỡng</li>
+                    <li>Hướng dẫn tự phục hồi cơ bản</li>
+                </ul>
+            </div>
+            <div class="card featured">
+                <h3>Hội Viên V.I.P <span class="vip-time">(3 Tháng)</span></h3>
+                <div class="price">12.900.000₫</div>
+                <ul class="features">
+                    <li>Không giới hạn thời gian mỗi buổi tập</li>
+                    <li>Người đồng hành (Companion) 24/7</li>
+                    <li>Lịch trình trọn gói 12 tuần liên tục</li>
+                    <li>Hỗ trợ thanh toán trả góp linh hoạt</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Tập Theo Buổi</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gói Buổi<br><span class="sub-th">(Không giới hạn giờ)</span></th>
+                        <th class="mobile-nowrap">Đơn Giá<br><span class="sub-th">/ Buổi</span></th>
+                        <th>Tổng <br class="mobile-br"> Đầu Tư</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>05 Buổi</td><td>490.000₫</td><td>2.450.000₫</td></tr>
+                    <tr><td>15 Buổi</td><td>350.000₫</td><td>5.250.000₫</td></tr>
+                    <tr><td>30 Buổi</td><td>300.000₫</td><td>9.000.000₫</td></tr>
+                    <tr><td>60 Buổi</td><td>250.000₫</td><td>15.000.000₫</td></tr>
+                    <tr><td>100 Buổi</td><td>220.000₫</td><td>22.000.000₫</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="contact-section">
+        <h2 class="contact-title">BẮT ĐẦU <br class="mobile-br"> HÀNH TRÌNH</h2>
+        <p class="contact-info">Số điện thoại / Zalo:</p>
+        <span class="phone-number">0358 913 420</span>
+        <div>
+            <a href="https://www.facebook.com/share/1FP3953kG9/" target="_blank" class="fb-btn">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Kết nối cùng Nate Vu
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 NVP - NATE VU PRIVATE COACHING.
+    </footer>
+
+</body>
+</html>
