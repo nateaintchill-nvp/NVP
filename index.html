@@ -8,6 +8,7 @@
     <style>
         :root {
             --gold: #d4af37;
+            --premium-gold: #ffdf00;
             --dark-bg: #050505;
             --card-bg: #121212;
             --text-light: #f4f4f4;
@@ -62,25 +63,43 @@
         .bag-item h4 { margin: 10px 0; color: var(--gold); font-size: 1.2rem; }
         .bag-item p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
 
-        /* Các gói tập */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 80px; }
-        .card { background: var(--card-bg); padding: 40px 30px; border-radius: 4px; border: 1px solid #222; }
-        .card.featured { border-color: var(--gold); }
+        /* Gói tập chung */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        .card { background: var(--card-bg); padding: 40px 30px; border-radius: 4px; border: 1px solid #222; position: relative; }
         .card h3 { color: #fff; font-size: 1.6rem; margin: 0 0 10px 0; text-transform: uppercase; }
         .price { font-size: 1.8rem; font-weight: 800; color: var(--gold); margin-bottom: 20px; }
         .features { list-style: none; padding: 0; color: var(--text-dim); font-size: 0.95rem; }
         .features li { margin-bottom: 12px; padding-left: 20px; position: relative; }
         .features li::before { content: "•"; color: var(--gold); position: absolute; left: 0; }
 
-        /* Bảng giá (Mặc định Desktop) */
-        .table-container { width: 100%; border-radius: 8px; border: 1px solid #222; overflow: hidden; background: var(--card-bg); }
+        /* Bảng giá Online */
+        .table-container { width: 100%; border-radius: 8px; border: 1px solid #222; overflow: hidden; background: var(--card-bg); margin-bottom: 80px; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 20px 15px; border-bottom: 1px solid #222; text-align: center; }
         th { background: #000; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
         th:first-child, td:first-child { text-align: left; }
         .sub-th { display: block; font-size: 0.7rem; font-weight: 400; color: var(--text-dim); text-transform: none; margin-top: 4px; }
 
-        /* Liên hệ (Mặc định Desktop) */
+        /* NVP Offline Sessions Style */
+        .offline-section {
+            margin: 80px 0;
+            background: linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 100%);
+            border: 2px solid var(--premium-gold);
+            border-radius: 12px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 223, 0, 0.1);
+        }
+        .offline-badge {
+            background: var(--premium-gold); color: #000;
+            padding: 5px 20px; border-radius: 50px;
+            font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
+            display: inline-block; margin-bottom: 20px;
+        }
+        .offline-price { font-size: 2.5rem; font-weight: 900; color: #fff; margin: 20px 0; }
+        .offline-note { font-style: italic; color: var(--gold); font-size: 0.9rem; margin-bottom: 30px; }
+
+        /* Liên hệ */
         .contact-section { text-align: center; padding: 100px 20px; background: #0a0a0a; border-top: 1px solid #222; }
         .contact-title { font-size: 3.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-weight: 800; letter-spacing: 3px; }
         .contact-info { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 5px; }
@@ -94,40 +113,30 @@
 
         footer { text-align: center; padding: 50px; color: #444; font-size: 0.85rem; letter-spacing: 1px; }
 
-        .mobile-br { display: none; } /* Mặc định ngắt dòng tàng hình trên Desktop */
+        .mobile-br { display: none; }
 
-        /* ============================================================
-           MOBILE CUSTOIMZATION (CHỈ SỬA HIỂN THỊ KHI XEM TRÊN ĐIỆN THOẠI)
-           ============================================================ */
+        /* MOBILE OPTIMIZATION */
         @media (max-width: 480px) {
-            .mobile-br { display: block; } /* Bật ngắt dòng trên điện thoại */
-            
-            /* Tiêu đề 2 dòng */
+            .mobile-br { display: block; }
             .about-section h2 { font-size: 1.8rem; line-height: 1.2; }
-            
-            /* Gói VIP (3 Tháng) xuống dòng */
             .card h3 .vip-time { display: block; margin-top: 5px; font-size: 1rem; }
 
-            /* Bảng giá Tối ưu hiển thị chữ Mobile */
+            /* Bảng giá chuẩn Mobile */
             table { table-layout: fixed; font-size: 0.78rem; }
             th, td { padding: 15px 5px; }
-            th:nth-child(1), td:nth-child(1) { width: 33%; padding-left: 10px; } /* Gói buổi */
-            th:nth-child(2), td:nth-child(2) { width: 30%; } /* Đơn giá */
-            th:nth-child(3), td:nth-child(3) { width: 37%; text-align: right; padding-right: 10px; } /* Tổng Đầu Tư */
-            
-            /* Ép Đơn Giá hiển thị 1 dòng */
+            th:nth-child(1), td:nth-child(1) { width: 33%; padding-left: 10px; }
+            th:nth-child(2), td:nth-child(2) { width: 30%; }
+            th:nth-child(3), td:nth-child(3) { width: 37%; text-align: right; padding-right: 10px; }
             .mobile-nowrap { white-space: nowrap; }
-
             .sub-th { font-size: 0.58rem; }
 
-            /* Liên hệ 2 dòng và Số điện thoại */
+            /* Liên hệ & Nút FB */
             .contact-title { font-size: 2rem; line-height: 1.2; margin-bottom: 25px; }
             .phone-number { font-size: 1.8rem; margin-bottom: 30px; }
-            
-            /* Nút FB ép trên 1 dòng */
             .fb-btn { padding: 15px 20px; font-size: 0.95rem; white-space: nowrap; }
             .fb-btn svg { width: 18px; height: 18px; margin-right: 10px; }
             
+            .offline-price { font-size: 1.8rem; }
             .bag-grid { grid-template-columns: 1fr; }
             header h1 { font-size: 3.2rem; }
             .container { padding: 40px 15px; }
@@ -147,7 +156,7 @@
 
     <div class="container">
         <div class="about-section">
-            <h2>Kiến Trúc Sư <br class="mobile-br"> Hình Thể</h2>
+            <h2>Mind, Body <br class="mobile-br"> & Life Connection</h2>
             <p>
                 <strong>Sức khỏe không phải là sự đánh đổi, mà là sự cộng hưởng.</strong><br><br>
                 Tôi là <strong>Nate Vu (Vũ Đức Nghĩa)</strong>. Với hành trình 7 năm kinh nghiệm Fitness và 5 năm chuyên sâu Đào tạo trực tuyến, triết lý của tôi rất đơn giản: Tập luyện phải là một phần của niềm vui, không phải là gánh nặng xáo trộn cuộc sống của bạn.<br><br>
@@ -187,7 +196,7 @@
             </div>
         </div>
 
-        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Các Gói Lộ Trình</h2>
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Lộ Trình Trực Tuyến</h2>
         <div class="grid">
             <div class="card">
                 <h3>Khởi Đầu <span class="vip-time">(1 Tháng)</span></h3>
@@ -199,7 +208,7 @@
                     <li>Hướng dẫn tự phục hồi cơ bản</li>
                 </ul>
             </div>
-            <div class="card featured">
+            <div class="card" style="border-color: var(--gold);">
                 <h3>Hội Viên V.I.P <span class="vip-time">(3 Tháng)</span></h3>
                 <div class="price">12.900.000₫</div>
                 <ul class="features">
@@ -211,7 +220,7 @@
             </div>
         </div>
 
-        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Tập Theo Buổi</h2>
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Tập Theo Buổi (Online)</h2>
         <div class="table-container">
             <table>
                 <thead>
@@ -229,6 +238,21 @@
                     <tr><td>100 Buổi</td><td>220.000₫</td><td>22.000.000₫</td></tr>
                 </tbody>
             </table>
+        </div>
+
+        <div class="offline-section">
+            <div class="offline-badge">Số lượng giới hạn: 5 người / quý</div>
+            <h2 style="color: var(--premium-gold); text-transform: uppercase; font-size: 2rem; margin: 0;">NVP Offline Sessions</h2>
+            <p style="color: var(--text-dim); margin-top: 10px;">Đặc quyền huấn luyện trực tiếp 1-1 cùng Nate Vu</p>
+            <div class="offline-price">20.000.000₫ <span style="font-size: 1.2rem; color: var(--text-dim); font-weight: 400;">/ 3 Tháng</span></div>
+            <p class="offline-note">*Số buổi và thời gian tập phụ thuộc vào giáo án mục tiêu của khách hàng</p>
+            <ul class="features" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                <li>Chỉ nhận học viên cam kết tập luyện từ 3 buổi/tuần trở lên</li>
+                <li>Huấn luyện trực tiếp, chỉnh sửa form dáng và cảm nhận cơ bắp</li>
+                <li>Tầm soát hình thể và thiết kế lộ trình chuyên sâu nhất</li>
+                <li>Hỗ trợ song song Online Training khi phát sinh khoảng cách tập luyện</li>
+                <li>Hỗ trợ tư vấn Supplement và dinh dưỡng sát sao 24/7</li>
+            </ul>
         </div>
     </div>
 
@@ -250,3 +274,4 @@
 
 </body>
 </html>
+
