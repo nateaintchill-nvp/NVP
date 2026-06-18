@@ -80,6 +80,14 @@
         th:first-child, td:first-child { text-align: left; }
         .sub-th { display: block; font-size: 0.7rem; font-weight: 400; color: var(--text-dim); text-transform: none; margin-top: 4px; }
 
+        /* Lời dẫn phân khúc sản phẩm - Thiết lập chuẩn Responsive đồng đều */
+        .section-desc {
+            text-align: center; color: var(--text-dim); font-style: italic; 
+            margin: -30px auto 40px auto; font-size: 0.95rem; max-width: 780px; 
+            line-height: 1.7; padding: 0 15px; box-sizing: border-box;
+        }
+        .section-desc b { color: var(--gold); }
+
         /* NVP Offline Sessions Style */
         .offline-section {
             margin: 80px 0;
@@ -98,13 +106,6 @@
         }
         .offline-price { font-size: 2.5rem; font-weight: 900; color: #fff; margin: 20px 0; line-height: 1.2; }
         .offline-note { font-style: italic; color: var(--gold); font-size: 0.9rem; margin-bottom: 30px; }
-
-        /* Lời dẫn phân khúc sản phẩm */
-        .section-desc {
-            text-align: center; color: var(--text-dim); font-style: italic; 
-            margin: -30px auto 40px auto; font-size: 0.95rem; max-width: 750px; line-height: 1.6;
-        }
-        .section-desc b { color: var(--gold); }
 
         /* Liên hệ */
         .contact-section { text-align: center; padding: 100px 20px; background: #0a0a0a; border-top: 1px solid #222; }
@@ -147,7 +148,9 @@
             .bag-grid { grid-template-columns: 1fr; }
             header h1 { font-size: 3.2rem; }
             .container { padding: 40px 15px; }
-            .section-desc { margin: -30px auto 30px auto; font-size: 0.85rem; padding: 0 10px; }
+            
+            /* Điều chỉnh khoảng cách mô tả trên Mobile */
+            .section-desc { margin: -30px auto 30px auto; font-size: 0.88rem; line-height: 1.6; }
         }
     </style>
 </head>
@@ -282,8 +285,8 @@
         <div class="offline-section">
             <div class="offline-badge">Số lượng giới hạn: 5 người / quý</div>
             <h2 style="color: var(--premium-gold); text-transform: uppercase; font-size: 2rem; margin: 0;">NVP Offline Sessions</h2>
-            <p style="color: var(--text-dim); margin-top: 10px; font-style: italic; font-size: 0.95rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-                *Đặc quyền huấn luyện trực tiếp 1-1 cùng Nate Vu. Phân khúc này bán <b>sự đồng hành trực diện và tâm huyết tuyệt đối</b>. Dành riêng cho những bạn cần thay đổi bản thân một cách quyết liệt, mưu cầu một sự lột xác khốc liệt và cần một sự hiện diện bằng xương bằng thịt bên cạnh để sửa sai, đẩy giới hạn.
+            <p style="color: var(--text-dim); margin-top: 15px; font-style: italic; font-size: 0.95rem; max-width: 780px; margin-left: auto; margin-right: auto; line-height: 1.7; padding: 0 15px; box-sizing: border-box;">
+                *Đặc quyền huấn luyện trực tiếp 1-1 cùng Nate Vu. Phân khúc này bán <b style="color: var(--premium-gold);">sự đồng hành trực diện và nhiệt huyết tuyệt đối</b>. Dành riêng cho những bạn cần thay đổi bản thân một cách quyết liệt, mưu cầu một sự lột xác khốc liệt và cần một sự hiện diện bằng xương bằng thịt bên cạnh để sửa sai, đẩy giới hạn.
             </p>
             <div class="offline-price" style="margin-top: 15px;">20.000.000₫ <br class="mobile-br"> <span style="font-size: 1.2rem; color: var(--text-dim); font-weight: 400;">/ 3 Tháng</span></div>
             <p class="offline-note">*Số buổi và thời gian tập phụ thuộc vào giáo án mục tiêu của khách hàng</p>
