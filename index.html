@@ -99,6 +99,13 @@
         .offline-price { font-size: 2.5rem; font-weight: 900; color: #fff; margin: 20px 0; line-height: 1.2; }
         .offline-note { font-style: italic; color: var(--gold); font-size: 0.9rem; margin-bottom: 30px; }
 
+        /* Lời dẫn phân khúc sản phẩm */
+        .section-desc {
+            text-align: center; color: var(--text-dim); font-style: italic; 
+            margin: -30px auto 40px auto; font-size: 0.95rem; max-width: 750px; line-height: 1.6;
+        }
+        .section-desc b { color: var(--gold); }
+
         /* Liên hệ */
         .contact-section { text-align: center; padding: 100px 20px; background: #0a0a0a; border-top: 1px solid #222; }
         .contact-title { font-size: 3.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-weight: 800; letter-spacing: 3px; }
@@ -140,6 +147,7 @@
             .bag-grid { grid-template-columns: 1fr; }
             header h1 { font-size: 3.2rem; }
             .container { padding: 40px 15px; }
+            .section-desc { margin: -30px auto 30px auto; font-size: 0.85rem; padding: 0 10px; }
         }
     </style>
 </head>
@@ -197,6 +205,9 @@
         </div>
 
         <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Lộ Trình Trực Tuyến</h2>
+        <p class="section-desc">
+            *Lộ trình trọn gói bán <b>sự đồng hành toàn diện</b>. Dành riêng cho những anh em thực sự cần một người bạn đồng hành sát cánh, thiết kế và xoay sở giáo án tối ưu trong mọi hoàn cảnh biến động của cuộc sống.
+        </p>
         <div class="grid">
             <div class="card">
                 <h3>Khởi Đầu <span class="vip-time">(1 Tháng)</span></h3>
@@ -221,6 +232,9 @@
         </div>
 
         <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Tập Theo Buổi (Online)</h2>
+        <p class="section-desc">
+            *Gói tập lẻ bán <b>sự đồng hành trên từng phiên tập</b>. Bạn sẽ được giám sát và hiệu chỉnh kỹ thuật nghiêm ngặt trong phòng tập, nhưng cần có tinh thần tự giác cao để tự vận hành 50% khối lượng còn lại trong phần dinh dưỡng.
+        </p>
         <div class="table-container">
             <table>
                 <thead>
@@ -240,11 +254,10 @@
             </table>
         </div>
 
-        <!-- THÊM MỤC: GÓI COMBO LỊCH LẺ -->
-        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">
-            Gói Combo Lịch Lẻ
-            <span class="sub-th" style="display: block; font-size: 0.9rem; color: var(--text-dim); text-transform: none; margin-top: 5px;">(Tự tập luyện - Không kèm giảng dạy/buổi tập 1-1)</span>
-        </h2>
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Combo Lịch Lẻ</h2>
+        <p class="section-desc">
+            *Gói combo lịch lẻ bán <b>kiến thức cốt lõi và tư duy vận hành</b>. Chúng tôi vạch sẵn cho bạn bản đồ chuẩn xác nhất, đổi lại mô hình này đòi hỏi một sự kiên trì và tính kỷ luật tự giác cực kỳ lớn từ chính bản thân bạn.
+        </p>
         <div class="grid" style="margin-bottom: 80px;">
             <div class="card">
                 <h3>Combo Cơ Bản & Duy Trì</h3>
@@ -269,8 +282,10 @@
         <div class="offline-section">
             <div class="offline-badge">Số lượng giới hạn: 5 người / quý</div>
             <h2 style="color: var(--premium-gold); text-transform: uppercase; font-size: 2rem; margin: 0;">NVP Offline Sessions</h2>
-            <p style="color: var(--text-dim); margin-top: 10px;">Đặc quyền huấn luyện trực tiếp 1-1 cùng Nate Vu</p>
-            <div class="offline-price">20.000.000₫ <br class="mobile-br"> <span style="font-size: 1.2rem; color: var(--text-dim); font-weight: 400;">/ 3 Tháng</span></div>
+            <p style="color: var(--text-dim); margin-top: 10px; font-style: italic; font-size: 0.95rem; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                *Đặc quyền huấn luyện trực tiếp 1-1 cùng Nate Vu. Phân khúc này bán <b>sự đồng hành trực diện và tâm huyết tuyệt đối</b>. Dành riêng cho những bạn cần thay đổi bản thân một cách quyết liệt, mưu cầu một sự lột xác khốc liệt và cần một sự hiện diện bằng xương bằng thịt bên cạnh để sửa sai, đẩy giới hạn.
+            </p>
+            <div class="offline-price" style="margin-top: 15px;">20.000.000₫ <br class="mobile-br"> <span style="font-size: 1.2rem; color: var(--text-dim); font-weight: 400;">/ 3 Tháng</span></div>
             <p class="offline-note">*Số buổi và thời gian tập phụ thuộc vào giáo án mục tiêu của khách hàng</p>
             <ul class="features" style="max-width: 500px; margin: 0 auto; text-align: left;">
                 <li>Chỉ nhận học viên cam kết tập luyện từ 3 buổi/tuần trở lên</li>
@@ -300,4 +315,3 @@
 
 </body>
 </html>
-
