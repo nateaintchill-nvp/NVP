@@ -81,8 +81,6 @@
         .about { padding: 100px 0; text-align: center; }
         .label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #5bc0be; margin-bottom: 20px; display: block; }
         .about h2 { font-size: 32px; max-width: 800px; margin: 0 auto 40px; line-height: 1.4; }
-        .about-content { max-width: 750px; margin: 0 auto; text-align: justify; }
-        .about p { font-size: 16px; margin-bottom: 20px; color: #a0aec0; }
 
         /* Section 3: Philosophy with Background */
         .philosophy { 
@@ -107,14 +105,82 @@
         .card h3 { font-size: 22px; margin-bottom: 15px; }
         .card p { font-size: 15px; color: #8a9bb3; text-align: justify; }
 
+        /* Tree Map Component (reusable — root / trunk / alternating branches) */
+        .tree-map { margin-top: 60px; }
+        .tree-root { text-align: center; position: relative; }
+        .tree-root-tag {
+            display: inline-block;
+            padding: 14px 34px;
+            border: 1px solid rgba(91, 192, 190, 0.5);
+            background-color: rgba(91, 192, 190, 0.06);
+            color: #5bc0be;
+            font-size: 13px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .tree-trunk {
+            width: 1px;
+            height: 44px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, rgba(91, 192, 190, 0.5), rgba(91, 192, 190, 0.15));
+        }
+        .tree-timeline { position: relative; max-width: 820px; margin: 0 auto; }
+        .tree-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 20px; left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom, rgba(91, 192, 190, 0.4), rgba(91, 192, 190, 0.08));
+        }
+        .tree-node-row { position: relative; width: 50%; padding-bottom: 46px; }
+        .tree-node-row:last-child { padding-bottom: 0; }
+        .tree-node-row:nth-child(odd) { left: 0; padding-right: 44px; }
+        .tree-node-row:nth-child(even) { left: 50%; padding-left: 44px; }
+        .tree-node-row::before {
+            content: '';
+            position: absolute; top: 24px;
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background-color: #060b13;
+            border: 1px solid #5bc0be;
+            z-index: 2;
+        }
+        .tree-node-row:nth-child(odd)::before { right: -6px; }
+        .tree-node-row:nth-child(even)::before { left: -6px; }
+        .tree-node-row::after {
+            content: '';
+            position: absolute; top: 29px;
+            width: 30px; height: 1px;
+            background-color: rgba(91, 192, 190, 0.35);
+        }
+        .tree-node-row:nth-child(odd)::after { right: 0; }
+        .tree-node-row:nth-child(even)::after { left: 0; }
+        .tree-node-content {
+            padding: 26px 30px;
+            background-color: rgba(11, 20, 32, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .tree-node-content:hover { transform: translateY(-4px); border-color: rgba(91, 192, 190, 0.3); }
+        .tree-map .tree-node-index {
+            display: block;
+            font-size: 11px;
+            color: #5bc0be;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .tree-map .tree-node-content h4 { font-size: 19px; font-weight: 400; color: #edf2f7; margin-bottom: 10px; letter-spacing: 0.3px; }
+        .tree-map .tree-node-content p { font-size: 14.5px; color: #8a9bb3; text-align: left; margin: 0; }
+
         /* Section 4: Anywhere */
         .anywhere { padding: 100px 0; border-top: 1px solid rgba(209, 217, 230, 0.05); }
         .anywhere-flex { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
         .anywhere-text { flex: 1; text-align: center;}
         .anywhere-text h2 { font-size: 36px; margin-bottom: 25px; }
         .anywhere-text p { margin-bottom: 20px; font-size: 16px; color: #a0aec0; max-width: 800px; margin-left: auto; margin-right: auto;}
-        .anywhere-tags { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 30px; justify-content: center;}
-        .tag { border: 1px solid #2d3748; padding: 8px 20px; font-size: 13px; letter-spacing: 1px; color: #d1d9e6; border-radius: 20px; white-space: nowrap; }
 
         /* Section 5: Time Value with Background */
         .time-value { 
@@ -128,7 +194,6 @@
             background-attachment: fixed;
         }
         .time-value h2 { font-size: 32px; max-width: 800px; margin: 0 auto 30px; line-height: 1.4; }
-        .time-value p { font-size: 17px; max-width: 750px; margin: 0 auto 20px; color: #a0aec0; }
 
         /* Section 6: Booking */
         .booking { padding: 120px 0; text-align: center; }
@@ -165,6 +230,24 @@
             .nav-left { flex-direction: column; gap: 5px; align-items: flex-start; }
             .header-cta { padding: 8px 16px; font-size: 11px; }
             .container { padding: 0 20px; }
+
+            /* Tree Map: collapse alternating layout into a single left-aligned spine */
+            .tree-root-tag { padding: 12px 22px; font-size: 12px; letter-spacing: 1.5px; }
+            .tree-timeline::before { left: 20px; bottom: 10px; }
+            .tree-node-row,
+            .tree-node-row:nth-child(odd),
+            .tree-node-row:nth-child(even) {
+                width: 100%;
+                left: 0;
+                padding-left: 50px;
+                padding-right: 0;
+                padding-bottom: 30px;
+            }
+            .tree-node-row:nth-child(odd)::before,
+            .tree-node-row:nth-child(even)::before { left: 15px; right: auto; }
+            .tree-node-row:nth-child(odd)::after,
+            .tree-node-row:nth-child(even)::after { left: 20px; right: auto; width: 22px; }
+            .tree-node-content { padding: 22px 22px; }
         }
     </style>
 </head>
@@ -196,11 +279,41 @@
         <div class="container">
             <span class="label">Logic vận động...</span>
             <h2>Sức khỏe không phải là sự đánh đổi, mà là sự cộng hưởng.</h2>
-            <div class="about-content">
-                <p>Mình là Nate Vu (Vũ Đức Nghĩa). Với hành trình 7 năm kinh nghiệm Fitness và 5 năm chuyên sâu Đào tạo trực tuyến, triết lý của mình rất đơn giản: Tập luyện phải là một phần của niềm vui, không phải là gánh nặng xáo trộn cuộc sống của bạn.</p>
-                <p>Thay vì ép bạn vào một khuôn khổ khắc nghiệt, mình chọn cách mang vận động hòa quyện vào nhịp sống cá nhân. Dù mục tiêu của bạn là tăng cân, giảm mỡ, hay kiến tạo một thể chất bền bỉ, mình sẽ đồng hành cùng bạn xây dựng một nền tảng vững chắc về kỹ thuật và tư duy dinh dưỡng "đúng - đủ".</p>
-                <p>Tại NVP, mình hướng dẫn bạn tìm thấy một thể chất khỏe mạnh, một tâm trí thư thái nhưng lỳ lợm, thông qua việc làm chủ mọi giác quan từ bên trong.</p>
-                <p>Sau lộ trình cùng NVP, thứ bạn nhận được không chỉ là một hình thể mới, mà là kiến thức và thói quen bền vững để bạn tự tin làm chủ sức khỏe của chính mình suốt đời.</p>
+            <div class="tree-map">
+                <div class="tree-root">
+                    <span class="tree-root-tag">Nate Vu — NVP</span>
+                </div>
+                <div class="tree-trunk"></div>
+                <div class="tree-timeline">
+                    <div class="tree-node-row">
+                        <div class="tree-node-content">
+                            <span class="tree-node-index">01 — Kinh nghiệm</span>
+                            <h4>7 năm Fitness, 5 năm đào tạo Online</h4>
+                            <p>Nate Vu (Vũ Đức Nghĩa) đồng hành cùng học viên với nền tảng chuyên sâu về huấn luyện thể hình và coaching trực tuyến.</p>
+                        </div>
+                    </div>
+                    <div class="tree-node-row">
+                        <div class="tree-node-content">
+                            <span class="tree-node-index">02 — Triết lý</span>
+                            <h4>Tập luyện là niềm vui, không phải gánh nặng</h4>
+                            <p>Vận động được hòa quyện vào nhịp sống cá nhân, thay vì ép bạn vào một khuôn khổ khắc nghiệt làm xáo trộn cuộc sống.</p>
+                        </div>
+                    </div>
+                    <div class="tree-node-row">
+                        <div class="tree-node-content">
+                            <span class="tree-node-index">03 — Phương pháp</span>
+                            <h4>Kỹ thuật vững chắc & dinh dưỡng "đúng - đủ"</h4>
+                            <p>Dù mục tiêu là tăng cân, giảm mỡ hay kiến tạo thể chất bền bỉ, hành trình luôn được xây trên nền tảng kỹ thuật và tư duy dinh dưỡng hợp lý.</p>
+                        </div>
+                    </div>
+                    <div class="tree-node-row">
+                        <div class="tree-node-content">
+                            <span class="tree-node-index">04 — Kết quả</span>
+                            <h4>Làm chủ sức khỏe suốt đời</h4>
+                            <p>Không chỉ một hình thể mới, mà là thể chất khỏe mạnh, tâm trí thư thái - lỳ lợm, cùng kiến thức và thói quen bền vững.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -237,13 +350,39 @@
             <div class="anywhere-text">
                 <span class="label">Không giới hạn</span>
                 <h2>Phòng tập không phải là vấn đề.</h2>
-                <p>Khỏe mạnh là một trạng thái, không phải là một địa điểm. Mình không trói buộc bạn vào bốn bức tường của một phòng gym cụ thể.</p>
-                <p>Chỉ cần bạn có đủ quyết tâm, phần còn lại mình lo. Từ coaching trực tiếp tại studio, tại nhà riêng, cho đến những phiên đồng hành Online sắc nét. Miễn là bạn sẵn sàng, mọi không gian đều trở thành nơi rèn luyện.</p>
-                <div class="anywhere-tags">
-                    <span class="tag">Online Coaching</span>
-                    <span class="tag">Private Gym</span>
-                    <span class="tag">At-home Training</span>
-                    <span class="tag">Outdoor</span>
+                <p>Khỏe mạnh là một trạng thái, không phải là một địa điểm. Chỉ cần bạn có đủ quyết tâm, phần còn lại mình lo — mọi không gian đều có thể trở thành nơi rèn luyện.</p>
+
+                <div class="tree-map">
+                    <div class="tree-root">
+                        <span class="tree-root-tag">4 hình thức đồng hành</span>
+                    </div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-timeline">
+                        <div class="tree-node-row">
+                            <div class="tree-node-content">
+                                <h4>Online Coaching</h4>
+                                <p>Đồng hành sát sao qua màn hình, không giới hạn bởi khoảng cách địa lý.</p>
+                            </div>
+                        </div>
+                        <div class="tree-node-row">
+                            <div class="tree-node-content">
+                                <h4>Private Gym</h4>
+                                <p>Không gian phòng tập riêng tư, tập trung tối đa vào từng buổi tập.</p>
+                            </div>
+                        </div>
+                        <div class="tree-node-row">
+                            <div class="tree-node-content">
+                                <h4>At-home Training</h4>
+                                <p>Mang bài tập đến tận nhà, linh hoạt theo đúng lịch trình của bạn.</p>
+                            </div>
+                        </div>
+                        <div class="tree-node-row">
+                            <div class="tree-node-content">
+                                <h4>Outdoor</h4>
+                                <p>Vận động giữa không gian mở, làm mới năng lượng tập luyện.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -253,8 +392,26 @@
         <div class="container">
             <span class="label">Giá trị của sự đồng hành</span>
             <h2>Mua lại thời gian của chính mình.</h2>
-            <p>Thời gian của bạn là hữu hạn. Khi chọn mình đồng hành, đồng nghĩa với việc bạn đang dùng lăng kính của nhiều năm kinh nghiệm để chắt lọc và sắp xếp lại mớ kiến thức trôi nổi ngoài kia. Đó là cách để đi đường thẳng, tránh khỏi những cái hố sai lầm không đáng có.</p>
-            <p>Hoặc đơn giản hơn, bạn chỉ đang cần một người đồng hành – một người kéo bạn ra khỏi những ngày tập luyện tưởng chừng như cực khổ, chán ngắt với đống tạ sắt và những rep tập lặp đi lặp lại vô hồn. Ở đây, mình đồng hành cùng bạn đi qua những ngày rèn luyện đó.</p>
+            <div class="tree-map">
+                <div class="tree-root">
+                    <span class="tree-root-tag">Vì sao chọn đồng hành cùng Nate</span>
+                </div>
+                <div class="tree-trunk"></div>
+                <div class="tree-timeline">
+                    <div class="tree-node-row">
+                        <div class="tree-node-content">
+                            <h4>Rút ngắn hành trình</h4>
+                            <p>Dùng lăng kính của nhiều năm kinh nghiệm để chắt lọc mớ kiến thức trôi nổi, giúp bạn đi đường thẳng và tránh những hố sai lầm không đáng có.</p>
+                        </div>
+                    </div>
+                    <div class="tree-node-row">
+                        <div class="tree-node-content">
+                            <h4>Người bạn đồng hành</h4>
+                            <p>Kéo bạn ra khỏi những ngày tập luyện chán ngắt với đống tạ sắt, cùng bạn đi qua từng rep tập lặp đi lặp lại thay vì để bạn tự bước một mình.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
