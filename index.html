@@ -19,9 +19,9 @@
         .bg-darker { background-color: #0a0a0a; }
         .bg-water { background-color: #111111; }
         
-        /* Text Wrapping */
-        h1, h2, h3 { 
-            font-weight: 400; 
+        /* Text Wrapping & Béo toàn bộ tiêu đề */
+        h1, h2, h3, h4 { 
+            font-weight: 700; 
             letter-spacing: 1px; 
             color: #ffffff; 
             text-wrap: balance; 
@@ -38,13 +38,15 @@
         }
         .nav-flex { display: flex; justify-content: space-between; align-items: center; }
         .nav-left { display: flex; align-items: baseline; gap: 15px; }
-        .logo { font-size: 22px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600;}
-        .tagline { font-size: 11px; letter-spacing: 2px; color: #a0a0a0; text-transform: uppercase; }
+        .logo { font-size: 22px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;}
+        
+        /* Thông tin định hướng (nghiêng + màu Gold) */
+        .tagline { font-size: 11px; letter-spacing: 2px; color: #d4af37; font-style: italic; text-transform: uppercase; }
         
         .header-cta {
             background-color: transparent; color: #d4af37; text-decoration: none;
             padding: 10px 25px; font-size: 13px; text-transform: uppercase;
-            font-weight: 600; letter-spacing: 2px; border: 1px solid #d4af37;
+            font-weight: 700; letter-spacing: 2px; border: 1px solid #d4af37;
             transition: all 0.3s ease;
             white-space: nowrap;
             display: inline-block;
@@ -70,12 +72,14 @@
         .staircase-wrapper { display: inline-block; text-align: left; position: relative; z-index: 2; }
         .staircase-wrapper h1 { font-size: 56px; line-height: 1.3; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.9); }
         .staircase-wrapper span.line { display: block; }
-        .highlight { color: #d4af37; font-weight: 600; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .highlight { color: #d4af37; font-weight: 700; text-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
 
         /* Section 2: About */
         .about { padding: 100px 0; text-align: center; }
-        .label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #d4af37; margin-bottom: 20px; display: block; }
-        .about h2 { font-size: 32px; max-width: 800px; margin: 0 auto 40px; line-height: 1.4; }
+        
+        /* Thông tin định hướng (nghiêng + màu Gold) */
+        .label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #d4af37; font-style: italic; margin-bottom: 20px; display: block; }
+        .about h2 { font-size: 32px; max-width: 800px; margin: 0 auto 40px; line-height: 1.4; font-weight: 700; }
 
         /* Section 3: Philosophy */
         .philosophy { 
@@ -96,8 +100,10 @@
             transition: transform 0.3s ease; 
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.4); }
-        .card-num { display: block; font-size: 12px; color: #d4af37; letter-spacing: 2px; margin-bottom: 20px; font-weight: 600; }
-        .card h3 { font-size: 22px; margin-bottom: 15px; }
+        
+        /* Thông tin định hướng (nghiêng + màu Gold) */
+        .card-num { display: block; font-size: 12px; color: #d4af37; font-style: italic; letter-spacing: 2px; margin-bottom: 20px; font-weight: 700; }
+        .card h3 { font-size: 22px; margin-bottom: 15px; font-weight: 700; }
         .card p { font-size: 15px; color: #a0a0a0; text-align: justify; }
 
         /* Tree Map Component */
@@ -106,7 +112,7 @@
         .tree-root-tag {
             display: inline-block; padding: 14px 34px; border: 1px solid rgba(212, 175, 55, 0.5);
             background-color: rgba(212, 175, 55, 0.05); color: #d4af37; font-size: 13px;
-            letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600;
+            letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
         }
         .tree-trunk { width: 1px; height: 44px; margin: 0 auto; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.5), rgba(212, 175, 55, 0.05)); }
         .tree-timeline { position: relative; max-width: 820px; margin: 0 auto; }
@@ -135,18 +141,34 @@
             border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .tree-node-content:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
+        
+        /* Thông tin định hướng (nghiêng + màu Gold) */
         .tree-map .tree-node-index {
-            display: block; font-size: 11px; color: #d4af37; letter-spacing: 2px;
-            text-transform: uppercase; font-weight: 600; margin-bottom: 10px;
+            display: block; font-size: 11px; color: #d4af37; font-style: italic; letter-spacing: 2px;
+            text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
         }
-        .tree-map .tree-node-content h4 { font-size: 19px; font-weight: 400; color: #ffffff; margin-bottom: 10px; letter-spacing: 0.3px; }
+        .tree-map .tree-node-content h4 { font-size: 19px; font-weight: 700; color: #ffffff; margin-bottom: 10px; letter-spacing: 0.3px; }
         .tree-map .tree-node-content p { font-size: 14.5px; color: #a0a0a0; text-align: left; margin: 0; }
+
+        /* Style Bullet Points cho 4 Lộ Trình Đồng Hành */
+        .tree-node-bullets {
+            list-style: none; padding: 0; margin: 10px 0 0 0; text-align: left;
+        }
+        .tree-node-bullets li {
+            font-size: 14.5px; color: #a0a0a0; margin-bottom: 8px; padding-left: 15px; position: relative; line-height: 1.6;
+        }
+        .tree-node-bullets li::before {
+            content: "•"; color: #d4af37; position: absolute; left: 0; font-weight: 700;
+        }
+        .tree-node-bullets strong {
+            color: #e0e0e0;
+        }
 
         /* Section 4: Anywhere */
         .anywhere { padding: 100px 0; border-top: 1px solid rgba(212, 175, 55, 0.1); }
         .anywhere-flex { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
         .anywhere-text { flex: 1; text-align: center;}
-        .anywhere-text h2 { font-size: 36px; margin-bottom: 25px; }
+        .anywhere-text h2 { font-size: 36px; margin-bottom: 25px; font-weight: 700; }
         .anywhere-text p { margin-bottom: 20px; font-size: 16px; color: #a0a0a0; max-width: 800px; margin-left: auto; margin-right: auto;}
 
         /* BÁO GIÁ CTA */
@@ -154,7 +176,7 @@
             margin-top: 60px; padding-top: 50px; 
             border-top: 1px dashed rgba(212, 175, 55, 0.3);
         }
-        .pricing-cta-box h3 { font-size: 22px; margin-bottom: 20px; color: #ffffff; }
+        .pricing-cta-box h3 { font-size: 22px; margin-bottom: 20px; color: #ffffff; font-weight: 700; }
         
         /* Modal Style (Popup Báo Giá) */
         .modal {
@@ -189,17 +211,17 @@
             background-image: linear-gradient(to right, rgba(5, 5, 5, 0.95), rgba(5, 5, 5, 0.85), rgba(5, 5, 5, 0.95)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop'); 
             background-size: cover; background-position: center; background-attachment: fixed;
         }
-        .time-value h2 { font-size: 32px; max-width: 800px; margin: 0 auto 30px; line-height: 1.4; }
+        .time-value h2 { font-size: 32px; max-width: 800px; margin: 0 auto 30px; line-height: 1.4; font-weight: 700; }
 
         /* Section 6: Booking */
         .booking { padding: 120px 0; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.1); }
-        .booking h2 { font-size: 38px; margin-bottom: 20px; }
+        .booking h2 { font-size: 38px; margin-bottom: 20px; font-weight: 700; }
         .booking p { max-width: 600px; margin: 0 auto 40px; color: #a0a0a0; }
         
         .contact-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
         .contact-btn {
             padding: 18px 35px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;
-            font-weight: 600; text-decoration: none; border-radius: 4px; transition: all 0.3s;
+            font-weight: 700; text-decoration: none; border-radius: 4px; transition: all 0.3s;
         }
         .zalo-btn { background-color: #d4af37; color: #050505; border: 1px solid #d4af37; }
         .zalo-btn:hover { background-color: transparent; color: #d4af37; }
@@ -273,14 +295,14 @@
             <h2>Sức khỏe không phải là sự đánh đổi, mà là sự cộng hưởng.</h2>
             <div class="tree-map">
                 <div class="tree-root">
-                    <span class="tree-root-tag">Nate Vu — NVP</span>
+                    <span class="tree-root-tag">Nate Vu Private</span>
                 </div>
                 <div class="tree-trunk"></div>
                 <div class="tree-timeline">
                     <div class="tree-node-row">
                         <div class="tree-node-content">
                             <span class="tree-node-index">01 — Kinh nghiệm</span>
-                            <h4>7 năm Fitness, 5 năm đào tạo Online</h4>
+                            <h4>7 năm trong Fitness, 5 năm đào tạo Online</h4>
                             <p>Nate Vu (Vũ Đức Nghĩa) đồng hành cùng học viên với nền tảng chuyên sâu về huấn luyện thể hình và coaching trực tuyến.</p>
                         </div>
                     </div>
@@ -354,35 +376,47 @@
                             <div class="tree-node-content">
                                 <span class="tree-node-index">01 — Trọn gói</span>
                                 <h4>Trọn Gói Online</h4>
-                                <p>Lộ trình cá nhân hóa trọn gói: lịch ăn, lịch tập chi tiết và sự đồng hành toàn diện của Nate suốt hành trình. Dành cho ai cần một người bạn đồng hành sát cánh, sẵn sàng xoay sở giáo án theo mọi biến động cuộc sống.</p>
+                                <ul class="tree-node-bullets">
+                                    <li>Lộ trình cá nhân hóa trọn gói bao gồm <strong>lịch ăn và lịch tập chi tiết</strong>.</li>
+                                    <li>Đặc trưng: <strong>Sự đồng hành toàn diện của Nate</strong> suốt hành trình, luôn có Nate <strong>giúp xoay sở giáo án</strong> theo mọi biến động cuộc sống.</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="tree-node-row">
                             <div class="tree-node-content">
                                 <span class="tree-node-index">02 — Theo buổi</span>
                                 <h4>Phiên Tập Online</h4>
-                                <p>Gói tập lẻ theo buổi, không giới hạn thời gian mỗi phiên, được giám sát và chỉnh kỹ thuật sát sao. Phù hợp với người đã có tinh thần tự giác cao và muốn tự vận hành phần dinh dưỡng.</p>
+                                <ul class="tree-node-bullets">
+                                    <li>Gói tập lẻ theo buổi, <strong>không giới hạn thời gian</strong> mỗi phiên.</li>
+                                    <li>Đặc trưng: Được <strong>giám sát và chỉnh kỹ thuật sát sao</strong>, đòi hỏi người tập có tinh thần tự giác cao để <strong>tự vận hành</strong> phần <strong>dinh dưỡng</strong>.</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="tree-node-row">
                             <div class="tree-node-content">
                                 <span class="tree-node-index">03 — Tự vận hành</span>
                                 <h4>Tiết Kiệm</h4>
-                                <p>Bộ lịch ăn, lịch tập cùng tư duy vận hành cốt lõi được vạch sẵn rõ ràng. Dành cho người thích tự chủ động thực thi, chỉ cần một sự kiên trì và kỷ luật từ chính bản thân.</p>
+                                <ul class="tree-node-bullets">
+                                    <li>Cung cấp <strong>bộ tài nguyên cốt lõi</strong> với lịch ăn, lịch tập cùng <strong>tư duy tự vận hành vạch sẵn rõ ràng</strong>.</li>
+                                    <li>Đặc trưng: <strong>Tự chủ động thực thi 100%</strong>, yêu cầu sự kiên trì và kỷ luật tuyệt đối từ <strong>chính bản thân bạn</strong>.</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="tree-node-row">
                             <div class="tree-node-content">
                                 <span class="tree-node-index">04 — Chọn lọc</span>
                                 <h4>Offline Có Chọn Lọc</h4>
-                                <p>Huấn luyện trực tiếp 1-1 cùng Nate, số lượng giới hạn mỗi quý. Dành cho ai cần một sự lột xác quyết liệt, cần một sự hiện diện thật sự bên cạnh để chỉnh form và đẩy giới hạn bản thân.</p>
+                                <ul class="tree-node-bullets">
+                                    <li>Huấn luyện trực tiếp 1-1 cùng Nate, <strong>số lượng giới hạn mỗi quý</strong>.</li>
+                                    <li>Đặc trưng: <strong>Sự hiện diện bằng xương bằng thịt</strong> bên cạnh để <strong>chỉnh form, đẩy giới hạn</strong> và tạo ra một <strong>sự lột xác quyết liệt</strong>.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="pricing-cta-box">
-                    <h3>Bạn cần báo giá?</h3>
+                    <h3><strong>Bạn cần báo giá?</strong></h3>
                     <button id="openPricingBtn" class="header-cta" style="padding: 16px 40px; font-size: 14px; cursor: pointer;">Xem Bảng Giá Chi Tiết</button>
                 </div>
 
@@ -409,7 +443,7 @@
                     <div class="tree-node-row">
                         <div class="tree-node-content">
                             <h4>Người bạn đồng hành</h4>
-                            <p>Kéo bạn ra khỏi những ngày tập luyện chán ngắt với đống tạ sắt, cùng bạn đi qua từng rep tập lặp đi lặp lại thay vì để bạn tự bước một mình.</p>
+                            <p>Cùng chia sẻ những câu chuyện vui, buồn trong cuộc sống, cùng tiến bộ qua từng buổi tập hay vượt qua những ngày chán nản và khiến đống tạ sắt bỗng quen thuộc hơn, trở nên nhỏ bé hơn.</p>
                         </div>
                     </div>
                 </div>
