@@ -51,7 +51,7 @@
         }
         .header-cta:hover { background-color: #5bc0be; color: #060b13; }
 
-        /* Section 1: Hero with Background */
+        /* Section 1: Hero */
         .hero { 
             padding: 180px 0 160px; 
             text-align: center; 
@@ -156,7 +156,7 @@
         }
         .pricing-cta-box h3 { font-size: 22px; margin-bottom: 20px; }
         
-        /* Modal Style */
+        /* Modal Style (Popup Báo Giá) */
         .modal {
             display: none; position: fixed; z-index: 9999; left: 0; top: 0;
             width: 100%; height: 100%; overflow: hidden;
@@ -191,7 +191,7 @@
         }
         .time-value h2 { font-size: 32px; max-width: 800px; margin: 0 auto 30px; line-height: 1.4; }
 
-        /* Section 6: Booking (New CTA Style) */
+        /* Section 6: Booking */
         .booking { padding: 120px 0; text-align: center; }
         .booking h2 { font-size: 38px; margin-bottom: 20px; }
         .booking p { max-width: 600px; margin: 0 auto 40px; color: #8a9bb3; }
@@ -208,7 +208,7 @@
 
         footer { padding: 40px 0; text-align: center; font-size: 12px; color: #4a5568; letter-spacing: 1px; border-top: 1px solid rgba(209, 217, 230, 0.05); }
 
-        /* Tablet Responsive */
+        /* Responsive */
         @media (max-width: 1024px) {
             .hero { padding: 150px 0 130px; }
             .staircase-wrapper h1 { font-size: 48px; }
@@ -217,7 +217,6 @@
             .hero, .philosophy, .time-value { background-attachment: scroll; }
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero { padding: 120px 0 100px; }
             .staircase-wrapper h1 { font-size: 36px; }
@@ -382,6 +381,7 @@
                     </div>
                 </div>
 
+                <!-- NÚT BẤM KÍCH HOẠT BẢNG GIÁ -->
                 <div class="pricing-cta-box">
                     <h3>Bạn cần báo giá?</h3>
                     <button id="openPricingBtn" class="header-cta" style="padding: 16px 40px; font-size: 14px; cursor: pointer;">Xem Bảng Giá Chi Tiết</button>
@@ -418,6 +418,7 @@
         </div>
     </section>
 
+    <!-- LIÊN HỆ -->
     <section id="booking" class="booking bg-water">
         <div class="container">
             <span class="label">Bắt đầu sự thay đổi</span>
@@ -441,6 +442,7 @@
         </div>
     </footer>
 
+    <!-- POPUP (MODAL) SẼ HIỆN RA KHI BẤM NÚT -->
     <div id="pricingModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closePricingBtn">&times;</span>
@@ -448,6 +450,7 @@
         </div>
     </div>
 
+    <!-- CODE BẢNG GIÁ MÀY YÊU CẦU ĐƯỢC GIẤU Ở ĐÂY, KHÔNG LÀM HỎNG CSS TRANG CHÍNH -->
     <template id="pricingRawHTML">
 <!DOCTYPE html>
 <html lang="vi">
@@ -457,22 +460,66 @@
     <title>NVP. | Báo Giá Private Coaching</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --premium-gold: #ffdf00; --dark-bg: #050505; --card-bg: #121212; --text-light: #f4f4f4; --text-dim: #a0a0a0; }
-        body { background-color: var(--dark-bg); color: var(--text-light); font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; line-height: 1.6; overflow-x: hidden; }
-        @media print { body { background-color: #000; color: #fff; } .container { padding: 20px 0; } .card, .offline-section { page-break-inside: avoid; border: 1px solid #444; } header { height: auto !important; padding: 40px 20px !important; background: #000 !important; } }
-        header { height: 40vh; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 40px 5%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; border-bottom: 2px solid var(--gold); }
+        :root {
+            --gold: #d4af37;
+            --premium-gold: #ffdf00;
+            --dark-bg: #050505;
+            --card-bg: #121212;
+            --text-light: #f4f4f4;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; line-height: 1.6;
+            overflow-x: hidden; 
+        }
+
+        /* Tối ưu hóa khi xuất file PDF */
+        @media print {
+            body { background-color: #000; color: #fff; }
+            .container { padding: 20px 0; }
+            .card, .offline-section { page-break-inside: avoid; border: 1px solid #444; }
+            header { height: auto !important; padding: 40px 20px !important; background: #000 !important; }
+        }
+
+        /* Header Logo nằm góc trái trên cùng */
+        header {
+            height: 40vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; 
+            align-items: flex-start;     
+            padding: 40px 5%;            
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; 
+            background-position: center; 
+            border-bottom: 2px solid var(--gold);
+        }
+
         .header-logo { margin-top: 10px; }
         .header-logo h1 { font-size: clamp(2.5rem, 8vw, 4rem); color: var(--gold); margin: 0; letter-spacing: 4px; text-align: left; }
         .header-logo p { letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); font-size: 0.85rem; margin-top: 5px; text-align: left; font-weight: 600; }
+
         .container { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
-        .time-notice { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 25px; text-align: center; margin-bottom: 60px; border-radius: 8px; font-size: 1.1rem; }
+
+        .time-notice {
+            background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold);
+            padding: 25px; text-align: center; margin-bottom: 60px; border-radius: 8px; font-size: 1.1rem;
+        }
         .time-notice b { color: var(--gold); }
+
+        /* Túi đồ */
         .bag-section { margin-bottom: 80px; text-align: center; }
         .bag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 40px; }
         .bag-item { background: #0a0a0a; padding: 30px; border-radius: 10px; border: 1px dashed #333; }
         .bag-item span { display: block; font-size: 2.5rem; margin-bottom: 15px; }
         .bag-item h4 { margin: 10px 0; color: var(--gold); font-size: 1.2rem; }
         .bag-item p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+
+        /* Gói tập chung */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px; }
         .card { background: var(--card-bg); padding: 40px 30px; border-radius: 4px; border: 1px solid #222; position: relative; }
         .card h3 { color: #fff; font-size: 1.6rem; margin: 0 0 10px 0; text-transform: uppercase; }
@@ -480,9 +527,252 @@
         .features { list-style: none; padding: 0; color: var(--text-dim); font-size: 0.95rem; }
         .features li { margin-bottom: 12px; padding-left: 20px; position: relative; }
         .features li::before { content: "•"; color: var(--gold); position: absolute; left: 0; }
+
+        /* Bảng giá Online */
         .table-container { width: 100%; border-radius: 8px; border: 1px solid #222; overflow: hidden; background: var(--card-bg); margin-bottom: 80px; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 20px 15px; border-bottom: 1px solid #222; text-align: center; }
         th { background: #000; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
         th:first-child, td:first-child { text-align: left; }
-        .sub-th { display: block
+        .sub-th { display: block; font-size: 0.7rem; font-weight: 400; color: var(--text-dim); text-transform: none; margin-top: 4px; }
+
+        /* Lời dẫn phân khúc sản phẩm */
+        .section-desc {
+            text-align: center; color: var(--text-dim); font-style: italic; 
+            margin: -30px auto 40px auto; font-size: 0.95rem; max-width: 780px; 
+            line-height: 1.7; padding: 0 15px; box-sizing: border-box;
+        }
+        .section-desc b { color: var(--gold); }
+
+        /* NVP Offline Sessions Style */
+        .offline-section {
+            margin: 80px 0;
+            background: linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 100%);
+            border: 2px solid var(--premium-gold);
+            border-radius: 12px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 223, 0, 0.1);
+        }
+        .offline-badge {
+            background: var(--premium-gold); color: #000;
+            padding: 5px 20px; border-radius: 50px;
+            font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
+            display: inline-block; margin-bottom: 20px;
+        }
+        .offline-price { font-size: 2.5rem; font-weight: 900; color: #fff; margin: 20px 0; line-height: 1.2; }
+        .offline-note { font-style: italic; color: var(--gold); font-size: 0.9rem; margin-bottom: 30px; }
+
+        /* Liên hệ */
+        .contact-section { text-align: center; padding: 80px 20px; background: #0a0a0a; border-top: 1px solid #222; }
+        .contact-title { font-size: 3rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-weight: 800; letter-spacing: 3px; }
+        .contact-info { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 5px; }
+        .phone-number { display: block; font-size: 2.5rem; font-weight: 800; color: var(--gold); margin-bottom: 40px; }
+        
+        footer { text-align: center; padding: 40px; color: #444; font-size: 0.85rem; letter-spacing: 1px; }
+
+        .mobile-br { display: none; }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 480px) {
+            .mobile-br { display: block; }
+            .card h3 .vip-time { display: block; margin-top: 5px; font-size: 1rem; }
+
+            /* Bảng giá chuẩn Mobile */
+            table { table-layout: fixed; font-size: 0.78rem; }
+            th, td { padding: 15px 5px; }
+            th:nth-child(1), td:nth-child(1) { width: 33%; padding-left: 10px; }
+            th:nth-child(2), td:nth-child(2) { width: 30%; }
+            th:nth-child(3), td:nth-child(3) { width: 37%; text-align: right; padding-right: 10px; }
+            .mobile-nowrap { white-space: nowrap; }
+            .sub-th { font-size: 0.58rem; }
+
+            /* Liên hệ */
+            .contact-title { font-size: 2rem; line-height: 1.2; margin-bottom: 25px; }
+            .phone-number { font-size: 1.8rem; margin-bottom: 30px; }
+            
+            .offline-price { font-size: 1.8rem; }
+            .bag-grid { grid-template-columns: 1fr; }
+            header { padding: 30px 20px; }
+            .container { padding: 40px 15px; }
+            
+            .section-desc { margin: -30px auto 30px auto; font-size: 0.88rem; line-height: 1.6; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-logo">
+            <h1>NVP.</h1>
+            <p>Nate Vu Private Coaching</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="time-notice">
+            <b>Cam kết NVP:</b> Chúng tôi tính phí theo buổi tập, <b>không giới hạn thời gian</b> cho mỗi buổi. 
+            Phiên tập chỉ kết thúc khi bạn hoàn thành trọn vẹn mục tiêu giáo án đề ra cho ngày hôm đó.
+        </div>
+
+        <div class="bag-section">
+            <h2 style="color:var(--gold); text-transform: uppercase; font-size: 1.8rem; letter-spacing: 2px;">Trong Túi Đồ Của NVP Có Gì?</h2>
+            <div class="bag-grid">
+                <div class="bag-item">
+                    <span>📋</span>
+                    <h4>Lộ Trình Riêng</h4>
+                    <p>Khách đăng ký sẽ nhận được Lịch ăn, Lịch tập & Bảng theo dõi thông số cá nhân hóa.</p>
+                </div>
+                <div class="bag-item">
+                    <span>📱</span>
+                    <h4>Kết Nối 24/7</h4>
+                    <p>Sử dụng Facebook Messenger & Zalo để hỗ trợ, nhắc nhở và giải đáp thắc mắc hàng ngày.</p>
+                </div>
+                <div class="bag-item">
+                    <span>🎥</span>
+                    <h4>Phòng Tập Ảo</h4>
+                    <p>Google Meet (Video Call) để cùng đi tập và sửa lỗi kỹ thuật trực tiếp tại địa điểm của bạn.</p>
+                </div>
+                <div class="bag-item">
+                    <span>💪</span>
+                    <h4>Nền Tảng Vững</h4>
+                    <p>Kiến thức chuẩn xác giúp bạn duy trì thói quen tập luyện dễ dàng bằng chính thực lực của mình.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Lộ Trình Trực Tuyến</h2>
+        <p class="section-desc">
+            *Lộ trình trọn gói bán <b>sự đồng hành toàn diện</b>. Dành riêng cho những anh em thực sự cần một người bạn đồng hành sát cánh, thiết kế và xoay sở giáo án tối ưu trong mọi hoàn cảnh biến động của cuộc sống.
+        </p>
+        <div class="grid">
+            <div class="card">
+                <h3>Khởi Đầu <span class="vip-time">(1 Tháng)</span></h3>
+                <div class="price">5.000.000₫</div>
+                <ul class="features">
+                    <li>Không giới hạn thời gian mỗi buổi tập</li>
+                    <li>Xây dựng kỹ thuật & tư duy chuẩn</li>
+                    <li>Cá nhân hóa lịch tập & dinh dưỡng</li>
+                    <li>Hướng dẫn tự phục hồi cơ bản</li>
+                </ul>
+            </div>
+            <div class="card" style="border-color: var(--gold);">
+                <h3>Hội Viên V.I.P <span class="vip-time">(3 Tháng)</span></h3>
+                <div class="price">12.900.000₫</div>
+                <ul class="features">
+                    <li>Không giới hạn thời gian mỗi buổi tập</li>
+                    <li>Người đồng hành (Companion) 24/7</li>
+                    <li>Lịch trình trọn gói 12 tuần liên tục</li>
+                    <li>Hỗ trợ thanh toán trả góp linh hoạt</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Tập Theo Buổi (Online)</h2>
+        <p class="section-desc">
+            *Gói tập lẻ bán <b>sự đồng hành trên từng phiên tập</b>. Bạn sẽ được giám sát và hiệu chỉnh kỹ thuật nghiêm ngặt trong phòng tập, nhưng cần có tinh thần tự giác cao để tự vận hành 50% khối lượng còn lại trong phần dinh dưỡng.
+        </p>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gói Buổi<br><span class="sub-th">(Không giới hạn giờ)</span></th>
+                        <th class="mobile-nowrap">Đơn Giá<br><span class="sub-th">/ Buổi</span></th>
+                        <th>Tổng <br class="mobile-br"> Đầu Tư</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>05 Buổi</td><td>490.000₫</td><td>2.450.000₫</td></tr>
+                    <tr><td>15 Buổi</td><td>350.000₫</td><td>5.250.000₫</td></tr>
+                    <tr><td>30 Buổi</td><td>300.000₫</td><td>9.000.000₫</td></tr>
+                    <tr><td>60 Buổi</td><td>250.000₫</td><td>15.000.000₫</td></tr>
+                    <tr><td>100 Buổi</td><td>220.000₫</td><td>22.000.000₫</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 style="text-align: center; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;">Gói Combo Lịch Lẻ</h2>
+        <p class="section-desc">
+            *Gói combo lịch lẻ bán <b>kiến thức cốt lõi và tư duy vận hành</b>. Chúng tôi vạch sẵn cho bạn bản đồ chuẩn xác nhất, đổi lại mô hình này đòi hỏi một sự kiên trì và tính kỷ luật tự giác cực kỳ lớn từ chính bản thân bạn.
+        </p>
+        <div class="grid" style="margin-bottom: 80px;">
+            <div class="card">
+                <h3>Combo Cơ Bản & Duy Trì</h3>
+                <div class="price">1.100.000₫</div>
+                <ul class="features">
+                    <li><strong>Lịch dinh dưỡng cơ bản:</strong> Định lượng calo/macro cố định, phục vụ mục tiêu duy trì và tạo thói quen kỷ luật.</li>
+                    <li><strong>Lịch tập cố định trong tuần:</strong> Thiết lập giáo án bài tập chuẩn phom bài bản.</li>
+                    <li><strong>Giải thích chi tiết:</strong> Làm rõ tư duy vận động để học viên tự tin thực thi chuẩn xác.</li>
+                </ul>
+            </div>
+            <div class="card" style="border-color: var(--gold);">
+                <h3>Combo Chi Tiết & Định Hướng</h3>
+                <div class="price">3.100.000₫</div>
+                <ul class="features">
+                    <li><strong>Lịch dinh dưỡng chi tiết:</strong> Đo lường sát thực phẩm, đi kèm lộ trình tổng quan định hướng lâu dài, hạn chế tối đa việc chững cân.</li>
+                    <li><strong>Lịch tập cố định lâu dài:</strong> Giáo án phân hóa khoa học cho sự phát triển hình thể bền vững.</li>
+                    <li><strong>Giải thích chuyên sâu:</strong> Phân tích cặn kẽ nguyên lý thực phẩm và bản chất vận động cho con người.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="offline-section">
+            <div class="offline-badge">Số lượng giới hạn: 5 người / quý</div>
+            <h2 style="color: var(--premium-gold); text-transform: uppercase; font-size: 2rem; margin: 0;">NVP Offline Sessions</h2>
+            <p style="color: var(--text-dim); margin-top: 15px; font-style: italic; font-size: 0.95rem; max-width: 780px; margin-left: auto; margin-right: auto; line-height: 1.7; padding: 0 15px; box-sizing: border-box;">
+                *Đặc quyền huấn luyện trực tiếp 1-1 cùng Nate Vu. Phân khúc này bán <b style="color: var(--premium-gold);">sự đồng hành trực diện và nhiệt huyết tuyệt đối</b>. Dành riêng cho những bạn cần thay đổi bản thân một cách quyết liệt, mưu cầu một sự lột xác khốc liệt và cần một sự hiện diện bằng xương bằng thịt bên cạnh để sửa sai, đẩy giới hạn.
+            </p>
+            <div class="offline-price" style="margin-top: 15px;">20.000.000₫ <br class="mobile-br"> <span style="font-size: 1.2rem; color: var(--text-dim); font-weight: 400;">/ 3 Tháng</span></div>
+            <p class="offline-note">*Số buổi và thời gian tập phụ thuộc vào giáo án mục tiêu của khách hàng</p>
+            <ul class="features" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                <li>Chỉ nhận học viên cam kết tập luyện từ 3 buổi/tuần trở lên</li>
+                <li>Huấn luyện trực tiếp, chỉnh sửa form dáng và cảm nhận cơ bắp</li>
+                <li>Tầm soát hình thể và thiết kế lộ trình chuyên sâu nhất</li>
+                <li>Hỗ trợ song song Online Training khi phát sinh khoảng cách tập luyện</li>
+                <li>Hỗ trợ tư vấn Supplement và dinh dưỡng sát sao 24/7</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="contact-section">
+        <h2 class="contact-title">BẮT ĐẦU <br class="mobile-br"> HÀNH TRÌNH</h2>
+        <p class="contact-info">Số điện thoại / Zalo:</p>
+        <span class="phone-number">0358 913 420</span>
+    </div>
+
+    <footer>
+        &copy; 2026 NVP - NATE VU PRIVATE COACHING.
+    </footer>
+
+</body>
+</html>
+    </template>
+
+    <!-- ĐOẠN SCRIPT ĐIỀU KHIỂN NÚT BẤM -->
+    <script>
+        const modal = document.getElementById('pricingModal');
+        const openBtn = document.getElementById('openPricingBtn');
+        const closeBtn = document.getElementById('closePricingBtn');
+        const iframe = document.getElementById('pricingIframe');
+        const template = document.getElementById('pricingRawHTML');
+
+        openBtn.onclick = function() {
+            modal.style.display = "block";
+            if (!iframe.srcdoc) {
+                iframe.srcdoc = template.innerHTML;
+            }
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
