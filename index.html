@@ -53,6 +53,31 @@
         }
         .header-cta:hover { background-color: #d4af37; color: #050505; }
 
+        /* Nút Floating CTA Lơ Lửng */
+        .floating-cta {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: #d4af37;
+            color: #050505;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        .floating-cta:hover {
+            background-color: #ffdf00;
+            color: #050505;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px);
+        }
+
         /* Section 1: Hero */
         .hero { 
             padding: 180px 0 160px; 
@@ -249,6 +274,14 @@
             .nav-left { flex-direction: column; gap: 5px; align-items: flex-start; }
             .header-cta { padding: 8px 16px; font-size: 11px; }
             .container { padding: 0 20px; }
+            
+            /* Điều chỉnh Nút Floating trên Mobile */
+            .floating-cta {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 11px;
+            }
 
             .tree-root-tag { padding: 12px 22px; font-size: 12px; letter-spacing: 1.5px; }
             .tree-timeline::before { left: 20px; bottom: 10px; }
@@ -476,6 +509,9 @@
             &copy; 2026 NVP - Nate Vu Private Coaching. <span class="footer-mobile-break">Học cách cân bằng.</span>
         </div>
     </footer>
+
+    <!-- Thêm Floating CTA -->
+    <a href="#booking" class="floating-cta">Tư Vấn Ngay</a>
 
     <div id="pricingModal" class="modal">
         <div class="modal-content">
