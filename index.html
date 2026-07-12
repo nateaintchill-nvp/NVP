@@ -106,6 +106,9 @@
         .label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #d4af37; font-style: italic; margin-bottom: 20px; display: block; }
         .about h2 { font-size: 32px; max-width: 800px; margin: 0 auto 40px; line-height: 1.4; font-weight: 700; }
 
+        /* Gợi ý vuốt ngang (chỉ hiện trên mobile - xem media query bên dưới) */
+        .swipe-hint { display: none; }
+
         /* Section 3: Philosophy */
         .philosophy { 
             padding: 120px 0; 
@@ -301,6 +304,79 @@
             /* Break footer span cho mobile */
             .footer-mobile-break { display: block; margin-top: 5px; }
         }
+
+        /* ===================================================================
+           GIAO DIỆN VUỐT NGANG TRÊN MOBILE
+           Áp dụng riêng cho 2 mục: "Triết lý tập luyện cùng Nate" (philosophy-swipe)
+           và "Lộ trình đồng hành" (roadmap-carousel). Desktop giữ nguyên 100%.
+           =================================================================== */
+        @media (max-width: 768px) {
+
+            /* --- Triết lý tập luyện cùng Nate: 3 thẻ vuốt ngang --- */
+            .philosophy-swipe {
+                display: flex;
+                flex-wrap: nowrap;
+                grid-template-columns: none;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 16px;
+                margin: 40px -20px 0;
+                padding: 6px 20px 30px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .philosophy-swipe::-webkit-scrollbar { display: none; }
+            .philosophy-swipe .swipe-item {
+                flex: 0 0 82%;
+                scroll-snap-align: center;
+            }
+
+            /* --- Lộ trình đồng hành: 4 thẻ vuốt ngang --- */
+            .roadmap-carousel {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 16px;
+                margin: 0 -20px;
+                padding: 6px 20px 30px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .roadmap-carousel::-webkit-scrollbar { display: none; }
+            .roadmap-carousel::before { display: none; }
+            .roadmap-carousel .tree-node-row {
+                width: 84%;
+                flex: 0 0 84%;
+                left: 0;
+                padding: 0;
+                scroll-snap-align: center;
+            }
+            .roadmap-carousel .tree-node-row::before,
+            .roadmap-carousel .tree-node-row::after {
+                display: none;
+            }
+            .roadmap-carousel .tree-node-content {
+                height: 100%;
+            }
+
+            /* --- Gợi ý vuốt (chung cho cả 2 khối) --- */
+            .swipe-hint {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                font-size: 11px;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                font-style: italic;
+                color: #d4af37;
+                opacity: 0.75;
+                margin-top: -18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -377,23 +453,24 @@
                 <h2 style="font-size: 32px; margin-bottom: 20px;"><span class="color-accent">Sự tỉnh thức</span> trong từng chuyển động</h2>
             </div>
             
-            <div class="grid">
-                <div class="card">
+            <div class="grid philosophy-swipe">
+                <div class="card swipe-item">
                     <span class="card-num">01 / THÍNH GIÁC ĐI TRƯỚC</span>
                     <h3>Nghe để <span class="color-accent">làm chủ</span></h3>
                     <p>Bạn không cần phải bắt chước huấn luyện viên như một cỗ máy. Hãy nhìn chính mình trong chiếc gương, lắng nghe sự điều hướng từ mình. Khi đôi tai thu nhận khẩu lệnh và đôi mắt tự quan sát hình thể, bạn sẽ tự thân làm chủ được từng khối cơ của mình.</p>
                 </div>
-                <div class="card">
+                <div class="card swipe-item">
                     <span class="card-num">02 / TƯ DUY</span>
                     <h3>Nghĩ để <span class="color-accent">mạnh</span></h3>
                     <p>Sức mạnh thể chất bắt nguồn từ một nội tâm tĩnh lặng. Kiểm soát nhịp thở, đưa suy nghĩ vào từng nhịp đẩy, kéo. Thể chất bền bỉ và khỏe mạnh được nuôi dưỡng từ chính tư tưởng và tâm lý vững vàng của bạn.</p>
                 </div>
-                <div class="card">
+                <div class="card swipe-item">
                     <span class="card-num">03 / GÓC NHÌN MỞ RỘNG</span>
                     <h3>Quan sát <span class="color-accent">đa chiều</span></h3>
                     <p>Quan sát không chỉ để nhìn thấu bản thân, mà còn để thấu hiểu thế giới xung quanh. Khi đã có nền tảng cốt lõi từ bên trong, bạn sẽ dùng ngoại cảnh làm thước đo kiểm chứng, từ đó mở rộng thế giới quan và tự hoàn thiện mình một cách sâu sắc nhất.</p>
                 </div>
             </div>
+            <p class="swipe-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
         </div>
     </section>
 
@@ -409,7 +486,7 @@
                         <span class="tree-root-tag">4 hình thức đồng hành</span>
                     </div>
                     <div class="tree-trunk"></div>
-                    <div class="tree-timeline">
+                    <div class="tree-timeline roadmap-carousel">
                         <div class="tree-node-row">
                             <div class="tree-node-content">
                                 <span class="tree-node-index">01 — Trọn gói</span>
@@ -452,6 +529,7 @@
                             </div>
                         </div>
                     </div>
+                    <p class="swipe-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
                 </div>
                 <div class="pricing-cta-box">
                     <h3>Báo giá luôn!</h3>
