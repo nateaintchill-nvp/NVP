@@ -134,9 +134,6 @@
         .card h3 { font-size: 22px; margin-bottom: 15px; font-weight: 700; }
         .card p { font-size: 15px; color: #a0a0a0; text-align: justify; }
 
-        /* Cắt khối rớt dòng trên Mobile */
-        .mobile-br-only { display: none; }
-
         /* Tree Map Component */
         .tree-map { margin-top: 60px; }
         .tree-root { text-align: center; position: relative; }
@@ -170,6 +167,7 @@
         .tree-node-content {
             padding: 26px 30px; background-color: rgba(15, 15, 15, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex; flex-direction: column; height: 100%;
         }
         .tree-node-content:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
         
@@ -261,7 +259,9 @@
 
         footer { padding: 40px 0; text-align: center; font-size: 12px; color: #666; letter-spacing: 1px; border-top: 1px solid rgba(212, 175, 55, 0.1); }
 
-        /* Responsive Desktop/Tablet */
+        /* ============================================================
+           RESPONSIVE - TABLET
+           ============================================================ */
         @media (max-width: 1024px) {
             .hero { padding: 150px 0 130px; }
             .staircase-wrapper h1 { font-size: 48px; }
@@ -270,9 +270,22 @@
             .hero, .philosophy, .time-value { background-attachment: scroll; }
         }
 
-        /* Responsive Mobile */
+        /* ============================================================
+           RESPONSIVE - MOBILE
+           ============================================================ */
         @media (max-width: 768px) {
-            /* Text Wrapping Fixes */
+            
+            /* Tách dòng tiêu đề: Sự tỉnh thức (Dòng 1) / Trong từng chuyển động (Dòng 2) */
+            .philosophy h2 .color-accent {
+                display: block;
+                margin-bottom: 4px;
+            }
+
+            /* Ép thẻ Philosophy hiển thị 1 dòng cho tiêu đề nhỏ */
+            .philosophy .card-num { white-space: nowrap; font-size: 10px !important; }
+            .philosophy .card h3 { white-space: nowrap; font-size: 17px !important; }
+
+            /* Fix Text Wrapping trên Mobile để tránh lỗ hổng dòng */
             .card p, .tree-node-content p, .tree-node-bullets li {
                 text-align: left !important;
             }
@@ -282,24 +295,15 @@
             .about h2, .time-value h2, .booking h2, .anywhere-text h2 { font-size: 26px; }
             .philosophy h2 { font-size: 26px !important; }
             
-            /* Tiêu đề 2 dòng */
-            .mobile-br-only { display: block; }
-            
-            /* Ép 1 dòng cho thẻ Philosophy */
-            .card-num { font-size: 10px !important; letter-spacing: 1px !important; white-space: nowrap; }
-            .card h3 { font-size: 19px !important; white-space: nowrap; }
-
-            /* Grid Layout Mobile */
-            .grid { grid-template-columns: 1fr; gap: 25px; margin-top: 40px; }
-
-            /* Header thu gọn */
-            .nav-left { flex-direction: column; gap: 2px; align-items: flex-start; }
-            .logo { font-size: 18px; letter-spacing: 2px; }
-            .tagline { font-size: 9px; letter-spacing: 1px; white-space: nowrap; }
-            .header-cta { padding: 6px 12px; font-size: 9px; letter-spacing: 1px; border-width: 1px; }
+            /* Thu gọn Logo & CTA Button trên Header để không bị đụng nhau */
+            .nav-left { flex-direction: column; gap: 4px; align-items: flex-start; }
+            .nav-flex { gap: 10px; }
+            .logo { font-size: 17px !important; letter-spacing: 1.5px !important; }
+            .tagline { font-size: 10px; letter-spacing: 1px; white-space: nowrap; }
+            .header-cta { padding: 6px 12px !important; font-size: 9px !important; letter-spacing: 1px !important; }
             .container { padding: 0 20px; }
             
-            /* Floating CTA */
+            /* Điều chỉnh Nút Floating trên Mobile */
             .floating-cta {
                 bottom: max(25px, env(safe-area-inset-bottom));
                 right: max(20px, env(safe-area-inset-right));
@@ -307,16 +311,23 @@
                 font-size: 11px;
             }
 
-            /* Áp dụng Timeline dọc chuẩn Mobile cho TOÀN BỘ hệ thống (About, Anywhere, Time-value) */
             .tree-root-tag { padding: 12px 22px; font-size: 12px; letter-spacing: 1.5px; }
-            .tree-timeline::before { left: 16px !important; bottom: 10px; }
-            .tree-node-row, .tree-node-row:nth-child(odd), .tree-node-row:nth-child(even) {
-                width: 100% !important; left: 0 !important; padding-left: 45px !important; padding-right: 0 !important; padding-bottom: 30px !important;
-                position: relative; max-width: none; flex: none; scroll-snap-align: none;
+            
+            /* Timeline dọc chuẩn cho Mobile (áp dụng cho mục Time Value) */
+            .time-value .tree-timeline::before { left: 16px; bottom: 10px; }
+            .time-value .tree-node-row, .time-value .tree-node-row:nth-child(odd), .time-value .tree-node-row:nth-child(even) {
+                width: 100%; left: 0; padding-left: 45px; padding-right: 0; padding-bottom: 30px;
             }
-            .tree-node-row:nth-child(odd)::before, .tree-node-row:nth-child(even)::before { left: 11px !important; right: auto !important; }
-            .tree-node-row:nth-child(odd)::after, .tree-node-row:nth-child(even)::after { left: 16px !important; right: auto !important; width: 22px !important; }
-            .tree-node-content { padding: 22px 22px; height: auto; }
+            .time-value .tree-node-row:nth-child(odd)::before, .time-value .tree-node-row:nth-child(even)::before { left: 11px; right: auto; }
+            .time-value .tree-node-row:nth-child(odd)::after, .time-value .tree-node-row:nth-child(even)::after { left: 16px; right: auto; width: 22px; }
+            .tree-node-content { padding: 22px 22px; }
+
+            /* Fix Box Báo Giá */
+            .anywhere .pricing-cta-box {
+                margin-top: 40px !important;
+                padding-top: 40px !important;
+                text-align: center;
+            }
 
             .contact-buttons { flex-direction: column; gap: 15px; }
             .contact-btn { width: 100%; text-align: center; }
@@ -325,6 +336,108 @@
             
             /* Break footer span cho mobile */
             .footer-mobile-break { display: block; margin-top: 5px; }
+        }
+
+        /* ============================================================
+           MOBILE CAROUSEL (Vuốt Ngang):
+           Dành cho "Logic vận động" (about) / "Triết lý" (philosophy) / "Lộ trình" (anywhere)
+           ============================================================ */
+        @media (max-width: 768px) {
+            
+            /* Reset CSS triệt để từ Desktop xuống Mobile Carousel */
+            .about .tree-timeline .tree-node-row,
+            .about .tree-timeline .tree-node-row:nth-child(odd),
+            .about .tree-timeline .tree-node-row:nth-child(even),
+            .anywhere-text .tree-timeline .tree-node-row,
+            .anywhere-text .tree-timeline .tree-node-row:nth-child(odd),
+            .anywhere-text .tree-timeline .tree-node-row:nth-child(even) {
+                position: static !important;
+                flex: 0 0 82% !important;
+                width: auto !important;
+                max-width: 320px !important;
+                left: auto !important;
+                padding: 0 !important;
+                scroll-snap-align: start;
+            }
+
+            .about .tree-timeline,
+            .anywhere-text .tree-timeline {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: visible;
+                max-width: none;
+                gap: 15px;
+                margin: 0 -20px;
+                padding: 10px 20px 30px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                align-items: stretch;
+            }
+            .about .tree-timeline::-webkit-scrollbar,
+            .anywhere-text .tree-timeline::-webkit-scrollbar {
+                display: none;
+                height: 0;
+            }
+            .about .tree-timeline::before,
+            .anywhere-text .tree-timeline::before {
+                content: none;
+            }
+            
+            .about .tree-timeline .tree-node-row::before,
+            .about .tree-timeline .tree-node-row::after,
+            .anywhere-text .tree-timeline .tree-node-row::before,
+            .anywhere-text .tree-timeline .tree-node-row::after {
+                content: none !important;
+            }
+
+            .about .tree-map::after,
+            .anywhere-text .tree-map::after {
+                content: "← Vuốt ngang để xem thêm →";
+                display: block;
+                text-align: center;
+                font-size: 11px;
+                letter-spacing: 1.5px;
+                font-style: italic;
+                color: #7a7a7a;
+                margin-top: 10px;
+            }
+
+            /* Philosophy Grid Carousel */
+            .philosophy .grid {
+                display: flex;
+                flex-wrap: nowrap;
+                grid-template-columns: none;
+                overflow-x: auto;
+                gap: 15px;
+                margin: 40px -20px 0;
+                padding: 10px 20px 30px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                align-items: stretch;
+            }
+            .philosophy .grid::-webkit-scrollbar {
+                display: none;
+                height: 0;
+            }
+            .philosophy .grid .card {
+                flex: 0 0 82%;
+                max-width: 320px;
+                scroll-snap-align: start;
+                height: auto;
+            }
+            .philosophy .container::after {
+                content: "← Vuốt ngang để xem thêm →";
+                display: block;
+                text-align: center;
+                font-size: 11px;
+                letter-spacing: 1.5px;
+                font-style: italic;
+                color: #7a7a7a;
+                margin-top: 10px;
+            }
         }
 
         @media (max-width: 380px) {
@@ -408,7 +521,7 @@
         <div class="container">
             <div style="text-align: center;">
                 <span class="label">Triết lý tập luyện cùng Nate</span>
-                <h2 style="font-size: 32px; margin-bottom: 20px;"><span class="color-accent">Sự tỉnh thức</span> <br class="mobile-br-only">trong từng chuyển động</h2>
+                <h2 style="font-size: 32px; margin-bottom: 20px;"><span class="color-accent">Sự tỉnh thức</span> trong từng chuyển động</h2>
             </div>
             
             <div class="grid">
@@ -487,6 +600,7 @@
                     </div>
                 </div>
 
+                <!-- Fix DOM Bug: Gắn đúng id pricing vào khối này -->
                 <div class="pricing-cta-box" id="pricing">
                     <h3>Báo giá luôn!</h3>
                     <button id="openPricingBtn" class="header-cta" style="padding: 16px 40px; font-size: 14px; cursor: pointer;">Xem Bảng Giá Chi Tiết</button>
@@ -546,6 +660,7 @@
         </div>
     </footer>
 
+    <!-- Thêm Floating CTA -->
     <a href="#booking" class="floating-cta">Tư Vấn Ngay</a>
 
     <div id="pricingModal" class="modal">
@@ -555,7 +670,7 @@
         </div>
     </div>
 
-    <!-- CODE BẢNG GIÁ -->
+    <!-- CODE BẢNG GIÁ ẨN ĐƯỢC GIỮ NGUYÊN 100% NHƯ YÊU CẦU -->
     <template id="pricingRawHTML">
 <!DOCTYPE html>
 <html lang="vi">
@@ -590,6 +705,7 @@
             header { height: auto !important; padding: 40px 20px !important; background: #000 !important; }
         }
 
+        /* Header Logo nằm góc trái trên cùng */
         header {
             height: 40vh; 
             display: flex; 
@@ -615,6 +731,7 @@
         }
         .time-notice b { color: var(--gold); }
 
+        /* Túi đồ */
         .bag-section { margin-bottom: 80px; text-align: center; }
         .bag-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 40px; }
         .bag-item { background: #0a0a0a; padding: 30px; border-radius: 10px; border: 1px dashed #333; }
@@ -622,6 +739,7 @@
         .bag-item h4 { margin: 10px 0; color: var(--gold); font-size: 1.2rem; }
         .bag-item p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
 
+        /* Gói tập chung */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px; }
         .card { background: var(--card-bg); padding: 40px 30px; border-radius: 4px; border: 1px solid #222; position: relative; }
         .card h3 { color: #fff; font-size: 1.6rem; margin: 0 0 10px 0; text-transform: uppercase; }
@@ -630,6 +748,7 @@
         .features li { margin-bottom: 12px; padding-left: 20px; position: relative; }
         .features li::before { content: "•"; color: var(--gold); position: absolute; left: 0; }
 
+        /* Bảng giá Online */
         .table-container { width: 100%; border-radius: 8px; border: 1px solid #222; overflow: hidden; background: var(--card-bg); margin-bottom: 80px; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 20px 15px; border-bottom: 1px solid #222; text-align: center; }
@@ -637,6 +756,7 @@
         th:first-child, td:first-child { text-align: left; }
         .sub-th { display: block; font-size: 0.7rem; font-weight: 400; color: var(--text-dim); text-transform: none; margin-top: 4px; }
 
+        /* Lời dẫn phân khúc sản phẩm */
         .section-desc {
             text-align: center; color: var(--text-dim); font-style: italic; 
             margin: -30px auto 40px auto; font-size: 0.95rem; max-width: 780px; 
@@ -644,6 +764,7 @@
         }
         .section-desc b { color: var(--gold); }
 
+        /* NVP Offline Sessions Style */
         .offline-section {
             margin: 80px 0;
             background: linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 100%);
@@ -662,6 +783,7 @@
         .offline-price { font-size: 2.5rem; font-weight: 900; color: #fff; margin: 20px 0; line-height: 1.2; }
         .offline-note { font-style: italic; color: var(--gold); font-size: 0.9rem; margin-bottom: 30px; }
 
+        /* Liên hệ */
         .contact-section { text-align: center; padding: 80px 20px; background: #0a0a0a; border-top: 1px solid #222; }
         .contact-title { font-size: 3rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-weight: 800; letter-spacing: 3px; }
         .contact-info { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 5px; }
@@ -671,10 +793,12 @@
 
         .mobile-br { display: none; }
 
+        /* MOBILE OPTIMIZATION */
         @media (max-width: 480px) {
             .mobile-br { display: block; }
             .card h3 .vip-time { display: block; margin-top: 5px; font-size: 1rem; }
 
+            /* Bảng giá chuẩn Mobile */
             table { table-layout: fixed; font-size: 0.78rem; }
             th, td { padding: 15px 5px; }
             th:nth-child(1), td:nth-child(1) { width: 33%; padding-left: 10px; }
@@ -683,6 +807,7 @@
             .mobile-nowrap { white-space: nowrap; }
             .sub-th { font-size: 0.58rem; }
 
+            /* Liên hệ */
             .contact-title { font-size: 2rem; line-height: 1.2; margin-bottom: 25px; }
             .phone-number { font-size: 1.8rem; margin-bottom: 30px; }
             
