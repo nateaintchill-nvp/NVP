@@ -81,6 +81,8 @@
             transform: translateY(-3px);
         }
 
+        .mobile-only-br { display: none; }
+
         /* Section 1: Hero */
         .hero { 
             padding: 180px 0 160px; 
@@ -274,6 +276,7 @@
            RESPONSIVE - MOBILE
            ============================================================ */
         @media (max-width: 768px) {
+            .mobile-only-br { display: block; }
             
             /* Tách dòng tiêu đề: Sự tỉnh thức (Dòng 1) / Trong từng chuyển động (Dòng 2) */
             .philosophy h2 .color-accent {
@@ -294,6 +297,15 @@
             .staircase-wrapper h1 { font-size: 38px; }
             .about h2, .time-value h2, .booking h2, .anywhere-text h2 { font-size: 26px; }
             .philosophy h2 { font-size: 26px !important; }
+
+            /* Điều chỉnh căn giữa & kích thước chữ mô tả phần Lộ trình */
+            .anywhere-desc {
+                font-size: 13.5px !important;
+                max-width: 290px !important;
+                margin: 0 auto 30px auto !important;
+                text-align: center !important;
+                line-height: 1.5;
+            }
             
             /* Thu gọn Logo & CTA Button trên Header để không bị đụng nhau */
             .nav-left { flex-direction: column; gap: 4px; align-items: flex-start; }
@@ -548,8 +560,8 @@
         <div class="container anywhere-flex">
             <div class="anywhere-text">
                 <span class="label">Lộ trình đồng hành</span>
-                <h2>Chọn lộ trình <span class="color-accent">phù hợp</span> với bạn.</h2>
-                <p>Mỗi người một nhịp sống, một mục tiêu riêng. Từ đồng hành toàn diện đến tự vận hành, luôn có một lộ trình phù hợp với đúng giai đoạn của bạn.</p>
+                <h2>Chọn lộ trình <br class="mobile-only-br"><span class="color-accent">phù hợp</span> với bạn.</h2>
+                <p class="anywhere-desc">Mỗi người một nhịp sống, một mục tiêu riêng. Từ đồng hành toàn diện đến tự vận hành, luôn có một lộ trình phù hợp với đúng giai đoạn của bạn.</p>
 
                 <div class="tree-map">
                     <div class="tree-root">
@@ -600,7 +612,6 @@
                     </div>
                 </div>
 
-                <!-- Fix DOM Bug: Gắn đúng id pricing vào khối này -->
                 <div class="pricing-cta-box" id="pricing">
                     <h3>Báo giá luôn!</h3>
                     <button id="openPricingBtn" class="header-cta" style="padding: 16px 40px; font-size: 14px; cursor: pointer;">Xem Bảng Giá Chi Tiết</button>
