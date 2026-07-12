@@ -324,14 +324,6 @@
             }
 
             .tree-root-tag { padding: 12px 22px; font-size: 12px; letter-spacing: 1.5px; }
-            
-            /* Timeline dọc chuẩn cho Mobile (áp dụng cho mục Time Value) */
-            .time-value .tree-timeline::before { left: 16px; bottom: 10px; }
-            .time-value .tree-node-row, .time-value .tree-node-row:nth-child(odd), .time-value .tree-node-row:nth-child(even) {
-                width: 100%; left: 0; padding-left: 45px; padding-right: 0; padding-bottom: 30px;
-            }
-            .time-value .tree-node-row:nth-child(odd)::before, .time-value .tree-node-row:nth-child(even)::before { left: 11px; right: auto; }
-            .time-value .tree-node-row:nth-child(odd)::after, .time-value .tree-node-row:nth-child(even)::after { left: 16px; right: auto; width: 22px; }
             .tree-node-content { padding: 22px 22px; }
 
             /* Fix Box Báo Giá */
@@ -352,7 +344,7 @@
 
         /* ============================================================
            MOBILE CAROUSEL (Vuốt Ngang):
-           Dành cho "Logic vận động" (about) / "Triết lý" (philosophy) / "Lộ trình" (anywhere)
+           Dành cho "Logic vận động" (about) / "Triết lý" (philosophy) / "Lộ trình" (anywhere) / "Giá trị đồng hành" (time-value)
            ============================================================ */
         @media (max-width: 768px) {
             
@@ -362,7 +354,10 @@
             .about .tree-timeline .tree-node-row:nth-child(even),
             .anywhere-text .tree-timeline .tree-node-row,
             .anywhere-text .tree-timeline .tree-node-row:nth-child(odd),
-            .anywhere-text .tree-timeline .tree-node-row:nth-child(even) {
+            .anywhere-text .tree-timeline .tree-node-row:nth-child(even),
+            .time-value .tree-timeline .tree-node-row,
+            .time-value .tree-timeline .tree-node-row:nth-child(odd),
+            .time-value .tree-timeline .tree-node-row:nth-child(even) {
                 position: static !important;
                 flex: 0 0 82% !important;
                 width: auto !important;
@@ -373,7 +368,8 @@
             }
 
             .about .tree-timeline,
-            .anywhere-text .tree-timeline {
+            .anywhere-text .tree-timeline,
+            .time-value .tree-timeline {
                 display: flex;
                 flex-wrap: nowrap;
                 overflow-x: auto;
@@ -388,24 +384,29 @@
                 align-items: stretch;
             }
             .about .tree-timeline::-webkit-scrollbar,
-            .anywhere-text .tree-timeline::-webkit-scrollbar {
+            .anywhere-text .tree-timeline::-webkit-scrollbar,
+            .time-value .tree-timeline::-webkit-scrollbar {
                 display: none;
                 height: 0;
             }
             .about .tree-timeline::before,
-            .anywhere-text .tree-timeline::before {
+            .anywhere-text .tree-timeline::before,
+            .time-value .tree-timeline::before {
                 content: none;
             }
             
             .about .tree-timeline .tree-node-row::before,
             .about .tree-timeline .tree-node-row::after,
             .anywhere-text .tree-timeline .tree-node-row::before,
-            .anywhere-text .tree-timeline .tree-node-row::after {
+            .anywhere-text .tree-timeline .tree-node-row::after,
+            .time-value .tree-timeline .tree-node-row::before,
+            .time-value .tree-timeline .tree-node-row::after {
                 content: none !important;
             }
 
             .about .tree-map::after,
-            .anywhere-text .tree-map::after {
+            .anywhere-text .tree-map::after,
+            .time-value .tree-map::after {
                 content: "← Vuốt ngang để xem thêm →";
                 display: block;
                 text-align: center;
@@ -492,7 +493,7 @@
             <h2>Sức khỏe không phải là sự đánh đổi, mà là <span class="color-accent">sự cộng hưởng</span>.</h2>
             <div class="tree-map">
                 <div class="tree-root">
-                    <span class="tree-root-tag">NVP</span>
+                    <span class="tree-root-tag">Natural - Vigorous - Private</span>
                 </div>
                 <div class="tree-trunk"></div>
                 <div class="tree-timeline">
