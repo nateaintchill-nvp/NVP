@@ -6,6 +6,7 @@
     <title>NVP - Nate Vu Private Coaching | Tập Luyện Trong Tỉnh Thức</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { overflow-x: hidden; width: 100%; }
         body {
             font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #050505; 
@@ -13,6 +14,8 @@
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            width: 100%;
         }
         .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; position: relative; z-index: 2; }
         .color-accent { color: #d4af37; }
@@ -105,9 +108,6 @@
         /* Thông tin định hướng (nghiêng + màu Gold) */
         .label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #d4af37; font-style: italic; margin-bottom: 20px; display: block; }
         .about h2 { font-size: 32px; max-width: 800px; margin: 0 auto 40px; line-height: 1.4; font-weight: 700; }
-
-        /* Gợi ý vuốt ngang (chỉ hiện trên mobile - xem media query bên dưới) */
-        .swipe-hint { display: none; }
 
         /* Section 3: Philosophy */
         .philosophy { 
@@ -282,19 +282,22 @@
             
             /* Điều chỉnh Nút Floating trên Mobile */
             .floating-cta {
-                bottom: 20px;
-                right: 20px;
+                bottom: max(20px, env(safe-area-inset-bottom));
+                right: max(20px, env(safe-area-inset-right));
                 padding: 12px 20px;
                 font-size: 11px;
+                max-width: calc(100vw - 40px);
             }
 
             .tree-root-tag { padding: 12px 22px; font-size: 12px; letter-spacing: 1.5px; }
-            .tree-timeline::before { left: 20px; bottom: 10px; }
-            .tree-node-row, .tree-node-row:nth-child(odd), .tree-node-row:nth-child(even) {
+            /* Vertical timeline layout is kept only for "Giá trị của sự đồng hành" (time-value).
+               About & Anywhere sections get their own carousel rules further below. */
+            .time-value .tree-timeline::before { left: 20px; bottom: 10px; }
+            .time-value .tree-node-row, .time-value .tree-node-row:nth-child(odd), .time-value .tree-node-row:nth-child(even) {
                 width: 100%; left: 0; padding-left: 50px; padding-right: 0; padding-bottom: 30px;
             }
-            .tree-node-row:nth-child(odd)::before, .tree-node-row:nth-child(even)::before { left: 15px; right: auto; }
-            .tree-node-row:nth-child(odd)::after, .tree-node-row:nth-child(even)::after { left: 20px; right: auto; width: 22px; }
+            .time-value .tree-node-row:nth-child(odd)::before, .time-value .tree-node-row:nth-child(even)::before { left: 15px; right: auto; }
+            .time-value .tree-node-row:nth-child(odd)::after, .time-value .tree-node-row:nth-child(even)::after { left: 20px; right: auto; width: 22px; }
             .tree-node-content { padding: 22px 22px; }
 
             .contact-btn { width: 100%; text-align: center; }
@@ -305,76 +308,113 @@
             .footer-mobile-break { display: block; margin-top: 5px; }
         }
 
-        /* ===================================================================
-           GIAO DIỆN VUỐT NGANG TRÊN MOBILE
-           Áp dụng riêng cho 2 mục: "Triết lý tập luyện cùng Nate" (philosophy-swipe)
-           và "Lộ trình đồng hành" (roadmap-carousel). Desktop giữ nguyên 100%.
-           =================================================================== */
+        /* ============================================================
+           MOBILE: Carousel vuốt ngang cho 3 khu vực:
+           "Logic vận động" (about) / "Triết lý tập luyện cùng Nate" (philosophy)
+           / "Lộ trình đồng hành" (anywhere). Giúp trang gọn lại trên điện thoại
+           thay vì kéo dài theo timeline dọc.
+           Khu vực "Giá trị của sự đồng hành" (time-value) giữ nguyên timeline dọc.
+           ============================================================ */
         @media (max-width: 768px) {
 
-            /* --- Triết lý tập luyện cùng Nate: 3 thẻ vuốt ngang --- */
-            .philosophy-swipe {
+            /* --- Logic vận động & Lộ trình đồng hành: tree-map -> carousel --- */
+            .about .tree-timeline,
+            .anywhere-text .tree-timeline {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: visible;
+                max-width: none;
+                gap: 14px;
+                margin: 0 -20px;
+                padding: 8px 20px 28px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .about .tree-timeline::-webkit-scrollbar,
+            .anywhere-text .tree-timeline::-webkit-scrollbar {
+                display: none;
+                height: 0;
+            }
+            .about .tree-timeline::before,
+            .anywhere-text .tree-timeline::before {
+                content: none;
+            }
+            .about .tree-timeline .tree-node-row,
+            .anywhere-text .tree-timeline .tree-node-row {
+                position: static;
+                flex: 0 0 80%;
+                width: auto;
+                max-width: 300px;
+                left: auto;
+                padding: 0;
+                scroll-snap-align: start;
+            }
+            .about .tree-timeline .tree-node-row::before,
+            .about .tree-timeline .tree-node-row::after,
+            .anywhere-text .tree-timeline .tree-node-row::before,
+            .anywhere-text .tree-timeline .tree-node-row::after {
+                content: none;
+            }
+            .about .tree-timeline .tree-node-content,
+            .anywhere-text .tree-timeline .tree-node-content {
+                height: 100%;
+            }
+            .about .tree-map::after,
+            .anywhere-text .tree-map::after {
+                content: "← Vuốt để xem thêm →";
+                display: block;
+                text-align: center;
+                font-size: 10.5px;
+                letter-spacing: 1.5px;
+                font-style: italic;
+                color: #7a7a7a;
+                margin-top: 4px;
+            }
+
+            /* --- Triết lý tập luyện cùng Nate: grid 3 thẻ -> carousel --- */
+            .philosophy .grid {
                 display: flex;
                 flex-wrap: nowrap;
                 grid-template-columns: none;
                 overflow-x: auto;
+                gap: 14px;
+                margin: 60px -20px 0;
+                padding: 8px 20px 28px;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
-                gap: 16px;
-                margin: 40px -20px 0;
-                padding: 6px 20px 30px;
                 scrollbar-width: none;
-                -ms-overflow-style: none;
             }
-            .philosophy-swipe::-webkit-scrollbar { display: none; }
-            .philosophy-swipe .swipe-item {
-                flex: 0 0 82%;
-                scroll-snap-align: center;
-            }
-
-            /* --- Lộ trình đồng hành: 4 thẻ vuốt ngang --- */
-            .roadmap-carousel {
-                display: flex;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                gap: 16px;
-                margin: 0 -20px;
-                padding: 6px 20px 30px;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-            .roadmap-carousel::-webkit-scrollbar { display: none; }
-            .roadmap-carousel::before { display: none; }
-            .roadmap-carousel .tree-node-row {
-                width: 84%;
-                flex: 0 0 84%;
-                left: 0;
-                padding: 0;
-                scroll-snap-align: center;
-            }
-            .roadmap-carousel .tree-node-row::before,
-            .roadmap-carousel .tree-node-row::after {
+            .philosophy .grid::-webkit-scrollbar {
                 display: none;
+                height: 0;
             }
-            .roadmap-carousel .tree-node-content {
-                height: 100%;
+            .philosophy .grid .card {
+                flex: 0 0 80%;
+                max-width: 300px;
+                scroll-snap-align: start;
             }
-
-            /* --- Gợi ý vuốt (chung cho cả 2 khối) --- */
-            .swipe-hint {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                font-size: 11px;
+            .philosophy .container::after {
+                content: "← Vuốt để xem thêm →";
+                display: block;
+                text-align: center;
+                font-size: 10.5px;
                 letter-spacing: 1.5px;
-                text-transform: uppercase;
                 font-style: italic;
-                color: #d4af37;
-                opacity: 0.75;
-                margin-top: -18px;
+                color: #7a7a7a;
+                margin-top: -4px;
+            }
+        }
+
+        /* Màn hình rất nhỏ: giữ nút Floating CTA gọn gàng, không lấn mép */
+        @media (max-width: 380px) {
+            .floating-cta {
+                padding: 10px 16px;
+                font-size: 10px;
+                letter-spacing: 1.5px;
+                bottom: max(16px, env(safe-area-inset-bottom));
+                right: max(16px, env(safe-area-inset-right));
             }
         }
     </style>
@@ -453,24 +493,23 @@
                 <h2 style="font-size: 32px; margin-bottom: 20px;"><span class="color-accent">Sự tỉnh thức</span> trong từng chuyển động</h2>
             </div>
             
-            <div class="grid philosophy-swipe">
-                <div class="card swipe-item">
+            <div class="grid">
+                <div class="card">
                     <span class="card-num">01 / THÍNH GIÁC ĐI TRƯỚC</span>
                     <h3>Nghe để <span class="color-accent">làm chủ</span></h3>
                     <p>Bạn không cần phải bắt chước huấn luyện viên như một cỗ máy. Hãy nhìn chính mình trong chiếc gương, lắng nghe sự điều hướng từ mình. Khi đôi tai thu nhận khẩu lệnh và đôi mắt tự quan sát hình thể, bạn sẽ tự thân làm chủ được từng khối cơ của mình.</p>
                 </div>
-                <div class="card swipe-item">
+                <div class="card">
                     <span class="card-num">02 / TƯ DUY</span>
                     <h3>Nghĩ để <span class="color-accent">mạnh</span></h3>
                     <p>Sức mạnh thể chất bắt nguồn từ một nội tâm tĩnh lặng. Kiểm soát nhịp thở, đưa suy nghĩ vào từng nhịp đẩy, kéo. Thể chất bền bỉ và khỏe mạnh được nuôi dưỡng từ chính tư tưởng và tâm lý vững vàng của bạn.</p>
                 </div>
-                <div class="card swipe-item">
+                <div class="card">
                     <span class="card-num">03 / GÓC NHÌN MỞ RỘNG</span>
                     <h3>Quan sát <span class="color-accent">đa chiều</span></h3>
                     <p>Quan sát không chỉ để nhìn thấu bản thân, mà còn để thấu hiểu thế giới xung quanh. Khi đã có nền tảng cốt lõi từ bên trong, bạn sẽ dùng ngoại cảnh làm thước đo kiểm chứng, từ đó mở rộng thế giới quan và tự hoàn thiện mình một cách sâu sắc nhất.</p>
                 </div>
             </div>
-            <p class="swipe-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
         </div>
     </section>
 
@@ -486,7 +525,7 @@
                         <span class="tree-root-tag">4 hình thức đồng hành</span>
                     </div>
                     <div class="tree-trunk"></div>
-                    <div class="tree-timeline roadmap-carousel">
+                    <div class="tree-timeline">
                         <div class="tree-node-row">
                             <div class="tree-node-content">
                                 <span class="tree-node-index">01 — Trọn gói</span>
@@ -529,7 +568,6 @@
                             </div>
                         </div>
                     </div>
-                    <p class="swipe-hint">Vuốt ngang để xem thêm <span aria-hidden="true">→</span></p>
                 </div>
                 <div class="pricing-cta-box">
                     <h3>Báo giá luôn!</h3>
