@@ -126,6 +126,8 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.05); 
             transition: transform 0.3s ease; 
+            display: flex;
+            flex-direction: column;
         }
         .card:hover { transform: translateY(-5px); border-color: rgba(212, 175, 55, 0.4); }
         
@@ -167,6 +169,7 @@
         .tree-node-content {
             padding: 26px 30px; background-color: rgba(15, 15, 15, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.05); transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex; flex-direction: column; height: 100%;
         }
         .tree-node-content:hover { transform: translateY(-4px); border-color: rgba(212, 175, 55, 0.4); }
         
@@ -268,38 +271,42 @@
         }
 
         @media (max-width: 768px) {
+            /* Fix Text Wrapping trên Mobile để tránh lỗ hổng dòng */
+            .card p, .tree-node-content p, .tree-node-bullets li {
+                text-align: left !important;
+            }
+
             .hero { padding: 120px 0 100px; }
-            .staircase-wrapper h1 { font-size: 36px; }
+            .staircase-wrapper h1 { font-size: 38px; }
             .about h2, .time-value h2, .booking h2, .anywhere-text h2 { font-size: 26px; }
             .philosophy h2 { font-size: 26px !important; }
-            .grid { grid-template-columns: 1fr; gap: 25px; }
-            .card { padding: 30px; }
-            .nav-left { flex-direction: column; gap: 5px; align-items: flex-start; }
-            .logo { font-size: 18px; letter-spacing: 2px; }
-            .tagline { font-size: 9px; letter-spacing: 1px; white-space: nowrap; }
-            .header-cta { padding: 6px 12px; font-size: 9px; letter-spacing: 1px; }
+            
+            .nav-left { flex-direction: column; gap: 4px; align-items: flex-start; }
+            .logo { font-size: 20px; letter-spacing: 2px; }
+            .tagline { font-size: 10px; letter-spacing: 1px; white-space: nowrap; }
+            .header-cta { padding: 8px 16px; font-size: 10px; letter-spacing: 1.5px; }
             .container { padding: 0 20px; }
             
             /* Điều chỉnh Nút Floating trên Mobile */
             .floating-cta {
-                bottom: max(20px, env(safe-area-inset-bottom));
+                bottom: max(25px, env(safe-area-inset-bottom));
                 right: max(20px, env(safe-area-inset-right));
-                padding: 12px 20px;
+                padding: 12px 22px;
                 font-size: 11px;
-                max-width: calc(100vw - 40px);
             }
 
             .tree-root-tag { padding: 12px 22px; font-size: 12px; letter-spacing: 1.5px; }
-            /* Vertical timeline layout is kept only for "Giá trị của sự đồng hành" (time-value).
-               About & Anywhere sections get their own carousel rules further below. */
-            .time-value .tree-timeline::before { left: 20px; bottom: 10px; }
+            
+            /* Timeline dọc chuẩn cho Mobile (áp dụng cho mục Time Value) */
+            .time-value .tree-timeline::before { left: 16px; bottom: 10px; }
             .time-value .tree-node-row, .time-value .tree-node-row:nth-child(odd), .time-value .tree-node-row:nth-child(even) {
-                width: 100%; left: 0; padding-left: 50px; padding-right: 0; padding-bottom: 30px;
+                width: 100%; left: 0; padding-left: 45px; padding-right: 0; padding-bottom: 30px;
             }
-            .time-value .tree-node-row:nth-child(odd)::before, .time-value .tree-node-row:nth-child(even)::before { left: 15px; right: auto; }
-            .time-value .tree-node-row:nth-child(odd)::after, .time-value .tree-node-row:nth-child(even)::after { left: 20px; right: auto; width: 22px; }
+            .time-value .tree-node-row:nth-child(odd)::before, .time-value .tree-node-row:nth-child(even)::before { left: 11px; right: auto; }
+            .time-value .tree-node-row:nth-child(odd)::after, .time-value .tree-node-row:nth-child(even)::after { left: 16px; right: auto; width: 22px; }
             .tree-node-content { padding: 22px 22px; }
 
+            .contact-buttons { flex-direction: column; gap: 15px; }
             .contact-btn { width: 100%; text-align: center; }
             .modal-content { width: 100%; height: 100vh; margin: 0; border-radius: 0; border: none; }
             .close-btn { top: 10px; right: 15px; background: rgba(0,0,0,0.8); }
@@ -309,15 +316,10 @@
         }
 
         /* ============================================================
-           MOBILE: Carousel vuốt ngang cho 3 khu vực:
-           "Logic vận động" (about) / "Triết lý tập luyện cùng Nate" (philosophy)
-           / "Lộ trình đồng hành" (anywhere). Giúp trang gọn lại trên điện thoại
-           thay vì kéo dài theo timeline dọc.
-           Khu vực "Giá trị của sự đồng hành" (time-value) giữ nguyên timeline dọc.
+           MOBILE CAROUSEL (Vuốt Ngang):
+           Dành cho "Logic vận động" (about) / "Triết lý" (philosophy) / "Lộ trình" (anywhere)
            ============================================================ */
         @media (max-width: 768px) {
-
-            /* --- Logic vận động & Lộ trình đồng hành: tree-map -> carousel --- */
             .about .tree-timeline,
             .anywhere-text .tree-timeline {
                 display: flex;
@@ -325,12 +327,13 @@
                 overflow-x: auto;
                 overflow-y: visible;
                 max-width: none;
-                gap: 14px;
+                gap: 15px;
                 margin: 0 -20px;
-                padding: 8px 20px 28px;
+                padding: 10px 20px 30px;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
+                align-items: stretch;
             }
             .about .tree-timeline::-webkit-scrollbar,
             .anywhere-text .tree-timeline::-webkit-scrollbar {
@@ -344,9 +347,9 @@
             .about .tree-timeline .tree-node-row,
             .anywhere-text .tree-timeline .tree-node-row {
                 position: static;
-                flex: 0 0 80%;
+                flex: 0 0 82%;
                 width: auto;
-                max-width: 300px;
+                max-width: 320px;
                 left: auto;
                 padding: 0;
                 scroll-snap-align: start;
@@ -357,62 +360,59 @@
             .anywhere-text .tree-timeline .tree-node-row::after {
                 content: none;
             }
-            .about .tree-timeline .tree-node-content,
-            .anywhere-text .tree-timeline .tree-node-content {
-                height: 100%;
-            }
+
             .about .tree-map::after,
             .anywhere-text .tree-map::after {
-                content: "← Vuốt để xem thêm →";
+                content: "← Vuốt ngang để xem thêm →";
                 display: block;
                 text-align: center;
-                font-size: 10.5px;
+                font-size: 11px;
                 letter-spacing: 1.5px;
                 font-style: italic;
                 color: #7a7a7a;
-                margin-top: 4px;
+                margin-top: 10px;
             }
 
-            /* --- Triết lý tập luyện cùng Nate: grid 3 thẻ -> carousel --- */
+            /* Philosophy Grid Carousel */
             .philosophy .grid {
                 display: flex;
                 flex-wrap: nowrap;
                 grid-template-columns: none;
                 overflow-x: auto;
-                gap: 14px;
-                margin: 60px -20px 0;
-                padding: 8px 20px 28px;
+                gap: 15px;
+                margin: 40px -20px 0;
+                padding: 10px 20px 30px;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
+                align-items: stretch;
             }
             .philosophy .grid::-webkit-scrollbar {
                 display: none;
                 height: 0;
             }
             .philosophy .grid .card {
-                flex: 0 0 80%;
-                max-width: 300px;
+                flex: 0 0 82%;
+                max-width: 320px;
                 scroll-snap-align: start;
+                height: auto;
             }
             .philosophy .container::after {
-                content: "← Vuốt để xem thêm →";
+                content: "← Vuốt ngang để xem thêm →";
                 display: block;
                 text-align: center;
-                font-size: 10.5px;
+                font-size: 11px;
                 letter-spacing: 1.5px;
                 font-style: italic;
                 color: #7a7a7a;
-                margin-top: -4px;
+                margin-top: 10px;
             }
         }
 
-        /* Màn hình rất nhỏ: giữ nút Floating CTA gọn gàng, không lấn mép */
         @media (max-width: 380px) {
             .floating-cta {
-                padding: 10px 16px;
+                padding: 10px 18px;
                 font-size: 10px;
-                letter-spacing: 1.5px;
                 bottom: max(16px, env(safe-area-inset-bottom));
                 right: max(16px, env(safe-area-inset-right));
             }
@@ -564,12 +564,12 @@
                                     <li>Huấn luyện trực tiếp 1-1 cùng Nate, <strong>số lượng giới hạn mỗi quý</strong>.</li>
                                     <li>Dành cho ai cần có <strong>sự hiện diện bằng xương bằng thịt của Nate</strong> bên cạnh để <strong>chỉnh kỹ thuật</strong>, <strong>đẩy giới hạn</strong> và tạo ra một <strong>sự lột xác quyết liệt</strong>.</li>
                                 </ul>
-                             <section id="pricing">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="pricing-cta-box">
+
+                <div class="pricing-cta-box" id="pricing">
                     <h3>Báo giá luôn!</h3>
                     <button id="openPricingBtn" class="header-cta" style="padding: 16px 40px; font-size: 14px; cursor: pointer;">Xem Bảng Giá Chi Tiết</button>
                 </div>
@@ -628,7 +628,6 @@
         </div>
     </footer>
 
-    <!-- Thêm Floating CTA -->
     <a href="#booking" class="floating-cta">Tư Vấn Ngay</a>
 
     <div id="pricingModal" class="modal">
@@ -638,7 +637,6 @@
         </div>
     </div>
 
-    <!-- CODE BẢNG GIÁ ẨN ĐƯỢC GIỮ NGUYÊN 100% NHƯ YÊU CẦU -->
     <template id="pricingRawHTML">
 <!DOCTYPE html>
 <html lang="vi">
