@@ -390,7 +390,7 @@
             .nav-flex { gap: 10px; align-items: flex-end; }
             .logo { font-size: 17px !important; letter-spacing: 1.5px !important; line-height: 1; }
             .tagline { font-size: 10px; letter-spacing: 1px; white-space: nowrap; line-height: 1; }
-            .header-cta { padding: 6px 12px !important; font-size: 9px !important; letter-spacing: 1px !important; white-space: normal; text-align: center; line-height: 1.4; }
+            .header-cta { padding: 6px 12px !important; font-size: 9px !important; letter-spacing: 1px !important; white-space: nowrap; text-align: center; line-height: 1.4; flex-shrink: 0; }
             .container { padding: 0 20px; }
             
             /* Điều chỉnh Nút Floating trên Mobile */
@@ -548,6 +548,7 @@
                 bottom: max(16px, env(safe-area-inset-bottom));
                 right: max(16px, env(safe-area-inset-right));
             }
+            .header-cta { padding: 5px 10px !important; font-size: 8px !important; letter-spacing: 0.5px !important; }
             .macro-card { padding: 20px 14px; }
             .macro-item { padding: 14px 8px; }
             .macro-item strong { font-size: 15px; }
@@ -1000,6 +1001,32 @@
         
         footer { text-align: center; padding: 40px; color: #444; font-size: 0.85rem; letter-spacing: 1px; }
 
+        .pricing-floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--gold);
+            color: #050505;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        .pricing-floating-cta:hover {
+            background-color: var(--premium-gold);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+            transform: translateY(-3px);
+        }
+        @media print {
+            .pricing-floating-cta { display: none; }
+        }
+
         .mobile-br { display: none; }
 
         /* MOBILE OPTIMIZATION */
@@ -1026,6 +1053,13 @@
             .container { padding: 40px 15px; }
             
             .section-desc { margin: -30px auto 30px auto; font-size: 0.88rem; line-height: 1.6; }
+
+            .pricing-floating-cta {
+                bottom: max(20px, env(safe-area-inset-bottom));
+                right: max(16px, env(safe-area-inset-right));
+                padding: 12px 22px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -1172,6 +1206,31 @@
     <footer>
         &copy; 2026 NVP - NATE VU PRIVATE COACHING.
     </footer>
+
+    <a href="#booking" id="pricingFloatingCta" class="pricing-floating-cta">Tư Vấn Ngay</a>
+
+    <script>
+        (function() {
+            var floatingCta = document.getElementById('pricingFloatingCta');
+            if (!floatingCta) return;
+            floatingCta.addEventListener('click', function(e) {
+                e.preventDefault();
+                try {
+                    var parentDoc = window.parent.document;
+                    var parentModal = parentDoc.getElementById('pricingModal');
+                    if (parentModal) parentModal.style.display = 'none';
+                    var bookingSection = parentDoc.getElementById('booking');
+                    if (bookingSection && bookingSection.scrollIntoView) {
+                        bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        window.parent.location.hash = 'booking';
+                    }
+                } catch (err) {
+                    window.parent.location.hash = 'booking';
+                }
+            });
+        })();
+    </script>
 
 </body>
 </html>
