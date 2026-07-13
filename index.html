@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NVP - Nate Vu Private Coaching | Tập Luyện Trong Tỉnh Thức</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { overflow-x: hidden; width: 100%; scroll-padding-top: 115px; }
         body {
-            font-family: 'Optima', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #050505; 
             color: #e0e0e0; 
             line-height: 1.7;
@@ -730,7 +733,7 @@
 
                         <div class="macro-input-group">
                             <label for="macro-age">Tuổi</label>
-                            <input type="number" id="macro-age" placeholder="Năm" min="15" max="100" inputmode="numeric" required>
+                            <input type="number" id="macro-age" min="15" max="100" inputmode="numeric" required>
                         </div>
 
                         <div class="macro-input-group">
@@ -1219,13 +1222,13 @@
                 const centerX = (area.left + area.right) / 2;
                 const centerY = (area.top + area.bottom) / 2;
 
-                ctx.font = `bold ${mainSize}px 'Optima', 'Segoe UI', sans-serif`;
+                ctx.font = `bold ${mainSize}px 'Montserrat', 'Segoe UI', sans-serif`;
                 ctx.fillStyle = cfg.color || '#d4af37';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(cfg.text, centerX, centerY - subSize * 0.7);
 
-                ctx.font = `bold ${subSize}px 'Optima', 'Segoe UI', sans-serif`;
+                ctx.font = `bold ${subSize}px 'Montserrat', 'Segoe UI', sans-serif`;
                 ctx.fillStyle = '#a0a0a0';
                 ctx.fillText('KCAL MỤC TIÊU', centerX, centerY + mainSize * 0.55);
                 ctx.restore();
@@ -1276,7 +1279,7 @@
                     let chars, charWidths, totalWidth, totalAngle;
 
                     for (let attempt = 0; attempt < 6; attempt++) {
-                        ctx.font = `bold ${fontSize}px 'Optima', 'Segoe UI', sans-serif`;
+                        ctx.font = `bold ${fontSize}px 'Montserrat', 'Segoe UI', sans-serif`;
                         chars = text.split('');
                         charWidths = chars.map(c => ctx.measureText(c).width);
                         totalWidth = charWidths.reduce((a, b) => a + b, 0);
