@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NVP - Nate Vu Private Coaching | Tập Luyện Trong Tỉnh Thức</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { overflow-x: hidden; width: 100%; scroll-padding-top: 115px; }
@@ -234,6 +235,79 @@
         .close-btn:hover { color: #fff; transform: scale(1.1); }
         #pricingIframe { width: 100%; height: 100%; border: none; display: block; }
 
+        /* ============================================================
+           Section 4.5: Macro Count (Bảng tính dinh dưỡng)
+           ============================================================ */
+        .macro-section { padding: 100px 0; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.1); }
+        .macro-intro { max-width: 800px; margin: 0 auto; }
+        .macro-section h2 { font-size: 36px; margin-bottom: 20px; font-weight: 700; }
+        .macro-desc { font-size: 16px; color: #a0a0a0; margin-bottom: 60px; }
+
+        .macro-card {
+            max-width: 800px; margin: 0 auto; text-align: left;
+            padding: 40px; background-color: rgba(15, 15, 15, 0.85);
+            backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .macro-form-title {
+            font-size: 15px; color: #ffffff; margin-bottom: 30px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase; text-align: center;
+        }
+
+        .macro-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .macro-input-group { display: flex; flex-direction: column; }
+        .macro-full-width { grid-column: span 2; }
+
+        .macro-input-group label {
+            font-size: 11px; color: #d4af37; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 8px; font-weight: 700; font-style: italic;
+        }
+
+        .macro-card input, .macro-card select {
+            background-color: #0a0a0a; border: 1px solid rgba(255,255,255,0.1);
+            color: #fff; padding: 14px; font-size: 16px; font-family: inherit;
+            outline: none; transition: border-color 0.3s ease; border-radius: 2px;
+            width: 100%; touch-action: manipulation;
+        }
+        .macro-card input:focus, .macro-card select:focus { border-color: #d4af37; }
+
+        .macro-card select {
+            appearance: none; -webkit-appearance: none; -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .macro-calc-btn {
+            grid-column: span 2; background-color: transparent; color: #d4af37;
+            border: 1px solid #d4af37; padding: 16px; font-size: 13px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease;
+            margin-top: 10px; touch-action: manipulation; font-family: inherit;
+        }
+        .macro-calc-btn:hover { background-color: #d4af37; color: #050505; }
+
+        .macro-result-section { margin-top: 50px; padding-top: 40px; border-top: 1px dashed rgba(212, 175, 55, 0.3); }
+        .macro-result-intro { text-align: center; margin-bottom: 30px; }
+        .macro-result-intro h3 { color: #fff; font-size: 22px; transition: all 0.3s ease; word-break: break-word; }
+        .macro-result-intro p { color: #a0a0a0; font-style: italic; text-align: center; }
+
+        .macro-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 40px; }
+        .macro-stat-box { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.05); padding: 20px; text-align: center; }
+        .macro-stat-box span { display: block; font-size: 11px; color: #d4af37; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        .macro-stat-box strong { font-size: 24px; color: #fff; }
+
+        .macro-chart-container { width: 100%; max-width: 380px; margin: 0 auto; position: relative; padding-bottom: 10px; aspect-ratio: 1 / 1; }
+        .macro-chart-container canvas { width: 100% !important; height: 100% !important; }
+
+        .macro-grams-note {
+            display: flex; margin-top: 30px; background-color: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 4px; overflow: hidden;
+        }
+        .macro-item { flex: 1; padding: 16px 10px; text-align: center; border-left: 1px solid rgba(255,255,255,0.08); }
+        .macro-item:first-child { border-left: none; }
+        .macro-item .macro-label { display: block; font-size: 10px; color: #d4af37; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+        .macro-item strong { font-size: 17px; color: #fff; }
+
         /* Section 5: Time Value */
         .time-value { 
             padding: 140px 0; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.1);
@@ -269,6 +343,7 @@
             .grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
             .container { padding: 0 30px; }
             .hero, .philosophy, .time-value { background-attachment: scroll; }
+            .macro-card { padding: 32px; }
         }
 
         /* ============================================================
@@ -295,7 +370,7 @@
 
             .hero { padding: 120px 0 100px; }
             .staircase-wrapper h1 { font-size: 38px; }
-            .about h2, .time-value h2, .booking h2, .anywhere-text h2 { font-size: 26px; }
+            .about h2, .time-value h2, .booking h2, .anywhere-text h2, .macro-section h2 { font-size: 26px; }
             .philosophy h2 { font-size: 26px !important; }
 
             /* Điều chỉnh căn giữa & kích thước chữ mô tả phần Lộ trình */
@@ -332,6 +407,16 @@
                 padding-top: 40px !important;
                 text-align: center;
             }
+
+            /* Fix Mục Macro Count */
+            .macro-section { padding: 70px 0; }
+            .macro-desc { font-size: 13.5px !important; margin-bottom: 40px; }
+            .macro-card { padding: 24px 20px; }
+            .macro-form-grid, .macro-stats-grid { grid-template-columns: 1fr; }
+            .macro-input-group.macro-full-width, .macro-calc-btn { grid-column: span 1; }
+            .macro-grams-note { flex-direction: column; }
+            .macro-item { border-left: none; border-top: 1px solid rgba(255,255,255,0.08); }
+            .macro-item:first-child { border-top: none; }
 
             .contact-buttons { flex-direction: column; gap: 15px; }
             .contact-btn { width: 100%; text-align: center; }
@@ -460,6 +545,9 @@
                 bottom: max(16px, env(safe-area-inset-bottom));
                 right: max(16px, env(safe-area-inset-right));
             }
+            .macro-card { padding: 20px 14px; }
+            .macro-item { padding: 14px 8px; }
+            .macro-item strong { font-size: 15px; }
         }
     </style>
 </head>
@@ -621,7 +709,113 @@
             </div>
         </div>
     </section>
-    
+
+    <section class="macro-section">
+        <div class="container">
+            <div class="macro-intro">
+                <span class="label">Công cụ đồng hành</span>
+                <h2>Macro <span class="color-accent">Count</span></h2>
+                <p class="macro-desc">Bảng tính số lượng của các chất (Protein - Carbs - Fat) cần nạp trong một ngày, được xây dựng riêng theo chỉ số cơ thể và mục tiêu tập luyện của bạn.</p>
+            </div>
+
+            <div class="macro-card">
+                <div class="macro-form-title">Thiết Lập Thông Số Cá Nhân</div>
+
+                <form id="macroForm">
+                    <div class="macro-form-grid">
+                        <div class="macro-input-group macro-full-width">
+                            <label for="macro-name">Tên của bạn</label>
+                            <input type="text" id="macro-name" placeholder="VD: Hoàng Toàn" required>
+                        </div>
+
+                        <div class="macro-input-group">
+                            <label for="macro-age">Tuổi</label>
+                            <input type="number" id="macro-age" placeholder="Năm" min="15" max="100" inputmode="numeric" required>
+                        </div>
+
+                        <div class="macro-input-group">
+                            <label for="macro-gender">Giới tính</label>
+                            <select id="macro-gender" required>
+                                <option value="male">Nam</option>
+                                <option value="female">Nữ</option>
+                            </select>
+                        </div>
+
+                        <div class="macro-input-group">
+                            <label for="macro-height">Chiều cao (cm)</label>
+                            <input type="number" id="macro-height" placeholder="VD: 175" step="0.1" min="1" inputmode="decimal" required>
+                        </div>
+
+                        <div class="macro-input-group">
+                            <label for="macro-weight">Cân nặng (kg)</label>
+                            <input type="number" id="macro-weight" placeholder="VD: 70" step="0.1" min="1" inputmode="decimal" required>
+                        </div>
+
+                        <div class="macro-input-group macro-full-width">
+                            <label for="macro-activity">Chỉ số vận động</label>
+                            <select id="macro-activity" required>
+                                <option value="1.2">Ít vận động (Việc văn phòng, không tập)</option>
+                                <option value="1.375">Vận động nhẹ (Tập 1-3 ngày/tuần)</option>
+                                <option value="1.55">Vận động vừa (Tập 3-5 ngày/tuần)</option>
+                                <option value="1.725">Vận động nhiều (Tập 6-7 ngày/tuần)</option>
+                                <option value="1.9">Vận động cực nhiều (Vận động viên, LĐ nặng)</option>
+                            </select>
+                        </div>
+
+                        <div class="macro-input-group macro-full-width">
+                            <label for="macro-goal">Mục tiêu tập luyện</label>
+                            <select id="macro-goal" required>
+                                <option value="cut">Giảm cân / Giảm mỡ</option>
+                                <option value="maintain">Duy trì vóc dáng</option>
+                                <option value="bulk">Tăng cân / Tăng cơ</option>
+                                <option value="recomp">Tăng cơ & Giảm mỡ (Body Recomp)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="macro-calc-btn">Phân Tích Dữ Liệu</button>
+                    </div>
+                </form>
+
+                <div class="macro-result-section">
+                    <div class="macro-result-intro">
+                        <h3 id="macro-res-greeting">BẢN ĐỒ DINH DƯỠNG</h3>
+                        <p id="macro-res-subtitle">Điền thông tin để bắt đầu kiến tạo thể chất.</p>
+                    </div>
+
+                    <div class="macro-stats-grid">
+                        <div class="macro-stat-box">
+                            <span>BMR (Năng lượng nền)</span>
+                            <strong id="macro-res-bmr">--</strong> kcal
+                        </div>
+                        <div class="macro-stat-box">
+                            <span>TDEE (Tiêu hao tổng)</span>
+                            <strong id="macro-res-tdee">--</strong> kcal
+                        </div>
+                    </div>
+
+                    <div class="macro-chart-container">
+                        <canvas id="macroChart"></canvas>
+                    </div>
+
+                    <div class="macro-grams-note">
+                        <div class="macro-item">
+                            <span class="macro-label">Protein</span>
+                            <strong id="macro-res-protein">--</strong>g
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-label">Carbs</span>
+                            <strong id="macro-res-carbs">--</strong>g
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-label">Fat</span>
+                            <strong id="macro-res-fat">--</strong>g
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="time-value">
         <div class="container">
             <span class="label">Giá trị của sự đồng hành</span>
@@ -1003,6 +1197,240 @@
                 modal.style.display = "none";
             }
         }
+    </script>
+
+    <script>
+        // ==== Macro Count: biểu đồ & tính toán ====
+
+        // Plugin 1: Ghi số Calo ở tâm vòng tròn (kích thước co giãn theo size biểu đồ)
+        const macroCenterTextPlugin = {
+            id: 'macroCenterText',
+            beforeDraw: function(chart) {
+                const cfg = chart.config.options.elements && chart.config.options.elements.center;
+                if (!cfg) return;
+
+                const ctx = chart.ctx;
+                const area = chart.chartArea;
+                const size = Math.min(area.right - area.left, area.bottom - area.top);
+                const mainSize = Math.max(20, Math.round(size * 0.16));
+                const subSize = Math.max(9, Math.round(size * 0.06));
+
+                ctx.save();
+                const centerX = (area.left + area.right) / 2;
+                const centerY = (area.top + area.bottom) / 2;
+
+                ctx.font = `bold ${mainSize}px 'Optima', 'Segoe UI', sans-serif`;
+                ctx.fillStyle = cfg.color || '#d4af37';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(cfg.text, centerX, centerY - subSize * 0.7);
+
+                ctx.font = `bold ${subSize}px 'Optima', 'Segoe UI', sans-serif`;
+                ctx.fillStyle = '#a0a0a0';
+                ctx.fillText('KCAL MỤC TIÊU', centerX, centerY + mainSize * 0.55);
+                ctx.restore();
+            }
+        };
+
+        // Plugin 2: Chữ uốn cong theo viền, canh đúng giữa mảng màu của nó.
+        const macroCurvedTextPlugin = {
+            id: 'macroCurvedText',
+            afterDraw: function(chart) {
+                const dataset = chart.data.datasets[0];
+                if (!dataset || !dataset.data || !dataset.showLabels) return;
+
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                const total = dataset.data.reduce((a, b) => a + b, 0);
+                if (!total) return;
+
+                dataset.data.forEach((value, index) => {
+                    const arc = meta.data[index];
+                    if (!arc || value <= 0) return;
+
+                    const percent = (value / total) * 100;
+                    if (percent < 4) return;
+
+                    const startAngle = arc.startAngle;
+                    const endAngle = arc.endAngle;
+                    const sweep = endAngle - startAngle;
+                    const midAngle = startAngle + sweep / 2;
+
+                    const topOrigin = midAngle + Math.PI / 2;
+
+                    let normalized = midAngle % (2 * Math.PI);
+                    if (normalized < 0) normalized += 2 * Math.PI;
+                    const isBottomHalf = normalized > 0 && normalized < Math.PI;
+
+                    const radius = (arc.innerRadius + arc.outerRadius) / 2;
+                    const text = `${Math.round(percent)}% ${chart.data.labels[index]}`;
+                    const color = index === 2 ? '#e0e0e0' : '#050505';
+
+                    ctx.save();
+                    ctx.fillStyle = color;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    let fontSize = Math.max(9, Math.min(12, Math.round(radius * 0.16)));
+                    const maxAngle = sweep * 0.86;
+                    let chars, charWidths, totalWidth, totalAngle;
+
+                    for (let attempt = 0; attempt < 6; attempt++) {
+                        ctx.font = `bold ${fontSize}px 'Optima', 'Segoe UI', sans-serif`;
+                        chars = text.split('');
+                        charWidths = chars.map(c => ctx.measureText(c).width);
+                        totalWidth = charWidths.reduce((a, b) => a + b, 0);
+                        totalAngle = totalWidth / radius;
+                        if (totalAngle <= maxAngle || fontSize <= 8) break;
+                        fontSize -= 1;
+                    }
+
+                    const charAngles = charWidths.map(w => w / radius);
+                    ctx.translate(arc.x, arc.y);
+
+                    let currentAngle = isBottomHalf
+                        ? topOrigin + totalAngle / 2
+                        : topOrigin - totalAngle / 2;
+
+                    chars.forEach((c, i) => {
+                        const charAngle = charAngles[i];
+                        ctx.save();
+                        if (isBottomHalf) {
+                            currentAngle -= charAngle / 2;
+                            ctx.rotate(currentAngle);
+                            ctx.translate(0, -radius);
+                            ctx.rotate(Math.PI);
+                            currentAngle -= charAngle / 2;
+                        } else {
+                            currentAngle += charAngle / 2;
+                            ctx.rotate(currentAngle);
+                            ctx.translate(0, -radius);
+                            currentAngle += charAngle / 2;
+                        }
+                        ctx.fillText(c, 0, 0);
+                        ctx.restore();
+                    });
+
+                    ctx.restore();
+                });
+            }
+        };
+
+        Chart.register(macroCenterTextPlugin, macroCurvedTextPlugin);
+
+        // Khởi tạo Chart mặc định (Chờ nhập)
+        const macroCtx = document.getElementById('macroChart').getContext('2d');
+        let macroChartInstance = new Chart(macroCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Đang chờ dữ liệu'],
+                datasets: [{
+                    data: [1],
+                    backgroundColor: ['#181818'],
+                    borderColor: 'rgba(212, 175, 55, 0.15)',
+                    borderWidth: 1,
+                    showLabels: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                aspectRatio: 1,
+                cutout: '72%',
+                elements: {
+                    center: { text: '--', color: '#555555' }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+
+        document.getElementById('macroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('macro-name').value.trim();
+            const age = parseInt(document.getElementById('macro-age').value, 10);
+            const gender = document.getElementById('macro-gender').value;
+            const height = parseFloat(document.getElementById('macro-height').value);
+            const weight = parseFloat(document.getElementById('macro-weight').value);
+            const activity = parseFloat(document.getElementById('macro-activity').value);
+            const goal = document.getElementById('macro-goal').value;
+
+            let bmr = 0;
+            if (gender === 'male') {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            const tdee = bmr * activity;
+            let targetCalories = tdee;
+            let pPercent, cPercent, fPercent;
+
+            switch(goal) {
+                case 'cut':
+                    targetCalories = tdee - 400;
+                    pPercent = 0.40; cPercent = 0.35; fPercent = 0.25;
+                    break;
+                case 'maintain':
+                    targetCalories = tdee;
+                    pPercent = 0.30; cPercent = 0.40; fPercent = 0.30;
+                    break;
+                case 'bulk':
+                    targetCalories = tdee + 400;
+                    pPercent = 0.25; cPercent = 0.50; fPercent = 0.25;
+                    break;
+                case 'recomp':
+                    targetCalories = tdee - 100;
+                    pPercent = 0.40; cPercent = 0.30; fPercent = 0.30;
+                    break;
+            }
+            targetCalories = Math.max(targetCalories, 0);
+
+            // Chia % theo CALO trước (đúng chuẩn dinh dưỡng), rồi mới quy ra gram.
+            const proteinCalories = targetCalories * pPercent;
+            const carbsCalories = targetCalories * cPercent;
+            const fatCalories = targetCalories * fPercent;
+
+            const proteinGrams = Math.round(proteinCalories / 4);
+            const carbsGrams = Math.round(carbsCalories / 4);
+            const fatGrams = Math.round(fatCalories / 9);
+
+            document.getElementById('macro-res-greeting').innerText = name ? `Lộ trình của ${name.toUpperCase()}.` : 'BẢN ĐỒ DINH DƯỠNG';
+            document.getElementById('macro-res-subtitle').innerText = 'Chi tiết dinh dưỡng dành riêng cho bạn.';
+            document.getElementById('macro-res-bmr').innerText = Math.round(bmr).toLocaleString('vi-VN');
+            document.getElementById('macro-res-tdee').innerText = Math.round(tdee).toLocaleString('vi-VN');
+            document.getElementById('macro-res-protein').innerText = proteinGrams;
+            document.getElementById('macro-res-carbs').innerText = carbsGrams;
+            document.getElementById('macro-res-fat').innerText = fatGrams;
+
+            macroChartInstance.data.labels = ['Protein', 'Carbs', 'Fat'];
+            macroChartInstance.data.datasets[0].data = [proteinCalories, carbsCalories, fatCalories];
+            macroChartInstance.data.datasets[0].gramsData = [proteinGrams, carbsGrams, fatGrams];
+            macroChartInstance.data.datasets[0].backgroundColor = ['#d4af37', '#e0e0e0', '#333333'];
+            macroChartInstance.data.datasets[0].borderWidth = 2;
+            macroChartInstance.data.datasets[0].borderColor = '#050505';
+            macroChartInstance.data.datasets[0].showLabels = true;
+
+            macroChartInstance.options.elements.center.text = Math.round(targetCalories).toLocaleString('vi-VN');
+            macroChartInstance.options.elements.center.color = '#d4af37';
+
+            macroChartInstance.options.plugins.tooltip = {
+                enabled: true,
+                callbacks: {
+                    label: function(context) {
+                        const grams = context.dataset.gramsData[context.dataIndex];
+                        return ` ${context.label}: ${grams}g (${Math.round(context.raw)} kcal)`;
+                    }
+                }
+            };
+
+            macroChartInstance.update();
+
+            document.querySelector('.macro-result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     </script>
 
 </body>
