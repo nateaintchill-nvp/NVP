@@ -1051,4 +1051,244 @@ DCGLiMIKYOIwgJg4jyP8B01x5AtHezvwAAAAASUVORK5CYII=">
         function applyTranslations(doc, lang) {
             const elements = doc.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
-                const key = el.getA
+                const key = el.getAttribute('data-i18n');
+                if (translations[key] && translations[key][lang]) {
+                    if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'number')) {
+                        el.placeholder = translations[key][lang];
+                    } else if (el.tagName === 'OPTION') {
+                        el.innerText = translations[key][lang];
+                    } else {
+                        el.innerHTML = translations[key][lang];
+                    }
+                }
+            });
+        }
+
+        const modal = document.getElementById('pricingModal');
+        const openBtn = document.getElementById('openPricingBtn');
+        const closeBtn = document.getElementById('closePricingBtn');
+        const iframe = document.getElementById('pricingIframe');
+        const template = document.getElementById('pricingRawHTML');
+
+        function closePricingModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "";
+        }
+
+        openBtn.onclick = function() {
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden";
+            if (!iframe.srcdoc) {
+                iframe.srcdoc = template.innerHTML;
+                iframe.onload = function() {
+                    applyTranslations(iframe.contentDocument, window.currentLang);
+                };
+            } else {
+                applyTranslations(iframe.contentDocument, window.currentLang);
+            }
+        }
+
+        closeBtn.onclick = closePricingModal;
+        window.onclick = function(event) { if (event.target == modal) { closePricingModal(); } }
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.style.display === 'block') {
+                closePricingModal();
+            }
+        });
+
+        /* Macro Chart Update Engine */
+        const macroCenterTextPlugin = {
+            id: 'macroCenterText',
+            beforeDraw: function(chart) {
+                const cfg = chart.config.options.elements && chart.config.options.elements.center;
+                if (!cfg) return;
+                const ctx = chart.ctx;
+                const area = chart.chartArea;
+                const size = Math.min(area.right - area.left, area.bottom - area.top);
+                const mainSize = Math.max(20, Math.round(size * 0.16));
+                const subSize = Math.max(9, Math.round(size * 0.06));
+
+                ctx.save();
+                const centerX = (area.left + area.right) / 2;
+                const centerY = (area.top + area.bottom) / 2;
+
+                ctx.font = `bold ${mainSize}px 'Montserrat', 'Segoe UI', sans-serif`;
+                ctx.fillStyle = cfg.color || '#d4af37';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(cfg.text, centerX, centerY - subSize * 0.7);
+
+                ctx.font = `bold ${subSize}px 'Montserrat', 'Segoe UI', sans-serif`;
+                ctx.fillStyle = '#a0a0a0';
+                const subText = window.currentLang === 'vi' ? 'KCAL MỤC TIÊU' : 'TARGET KCAL';
+                ctx.fillText(subText, centerX, centerY + mainSize * 0.55);
+                ctx.restore();
+            }
+        };
+
+        const macroCurvedTextPlugin = {
+            id: 'macroCurvedText',
+            afterDraw: function(chart) {
+                const dataset = chart.data.datasets[0];
+                if (!dataset || !dataset.data || !dataset.showLabels) return;
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                const total = dataset.data.reduce((a, b) => a + b, 0);
+                if (!total) return;
+
+                dataset.data.forEach((value, index) => {
+                    const arc = meta.data[index];
+                    if (!arc || value <= 0) return;
+                    const percent = (value / total) * 100;
+                    if (percent < 4) return;
+
+                    const startAngle = arc.startAngle;
+                    const endAngle = arc.endAngle;
+                    const sweep = endAngle - startAngle;
+                    const midAngle = startAngle + sweep / 2;
+                    const topOrigin = midAngle + Math.PI / 2;
+                    let normalized = midAngle % (2 * Math.PI);
+                    if (normalized < 0) normalized += 2 * Math.PI;
+                    const isBottomHalf = normalized > 0 && normalized < Math.PI;
+                    const radius = (arc.innerRadius + arc.outerRadius) / 2;
+                    const text = `${Math.round(percent)}% ${chart.data.labels[index]}`;
+                    const color = index === 2 ? '#e0e0e0' : '#050505';
+
+                    ctx.save();
+                    ctx.fillStyle = color;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    let fontSize = Math.max(9, Math.min(12, Math.round(radius * 0.16)));
+                    const maxAngle = sweep * 0.86;
+                    let chars, charWidths, totalWidth, totalAngle;
+
+                    for (let attempt = 0; attempt < 6; attempt++) {
+                        ctx.font = `bold ${fontSize}px 'Montserrat', 'Segoe UI', sans-serif`;
+                        chars = text.split('');
+                        charWidths = chars.map(c => ctx.measureText(c).width);
+                        totalWidth = charWidths.reduce((a, b) => a + b, 0);
+                        totalAngle = totalWidth / radius;
+                        if (totalAngle <= maxAngle || fontSize <= 8) break;
+                        fontSize -= 1;
+                    }
+                    const charAngles = charWidths.map(w => w / radius);
+                    ctx.translate(arc.x, arc.y);
+                    let currentAngle = isBottomHalf ? topOrigin + totalAngle / 2 : topOrigin - totalAngle / 2;
+
+                    chars.forEach((c, i) => {
+                        const charAngle = charAngles[i];
+                        ctx.save();
+                        if (isBottomHalf) {
+                            currentAngle -= charAngle / 2; ctx.rotate(currentAngle); ctx.translate(0, -radius); ctx.rotate(Math.PI); currentAngle -= charAngle / 2;
+                        } else {
+                            currentAngle += charAngle / 2; ctx.rotate(currentAngle); ctx.translate(0, -radius); currentAngle += charAngle / 2;
+                        }
+                        ctx.fillText(c, 0, 0);
+                        ctx.restore();
+                    });
+                    ctx.restore();
+                });
+            }
+        };
+
+        let macroChartInstance = null;
+        if (typeof Chart !== 'undefined') {
+            Chart.register(macroCenterTextPlugin, macroCurvedTextPlugin);
+            const macroCtx = document.getElementById('macroChart').getContext('2d');
+            macroChartInstance = new Chart(macroCtx, {
+                type: 'doughnut',
+                data: { labels: ['Đang chờ dữ liệu'], datasets: [{ data: [1], backgroundColor: ['#181818'], borderColor: 'rgba(212, 175, 55, 0.15)', borderWidth: 1, showLabels: false }] },
+                options: { responsive: true, maintainAspectRatio: true, aspectRatio: 1, cutout: '72%', elements: { center: { text: '--', color: '#555555' } }, plugins: { legend: { display: false }, tooltip: { enabled: false } } }
+            });
+        } else {
+            console.warn('Chart.js chưa tải được (mạng chặn CDN?) — số liệu vẫn tính bình thường, chỉ biểu đồ tròn sẽ không hiển thị.');
+        }
+
+        function updateChartLanguage(lang) {
+            if (!macroChartInstance) return;
+            const labels = { vi: ['Protein', 'Carbs', 'Fat', 'Đang chờ dữ liệu'], en: ['Protein', 'Carbs', 'Fat', 'Waiting for data'] };
+            if (macroChartInstance.data.datasets[0].data.length === 1) {
+                macroChartInstance.data.labels = [labels[lang][3]];
+            } else {
+                macroChartInstance.data.labels = [labels[lang][0], labels[lang][1], labels[lang][2]];
+            }
+            macroChartInstance.update();
+
+            const nameInput = document.getElementById('macro-name').value.trim();
+            if (macroChartInstance.data.datasets[0].data.length > 1) {
+                const greetingKey = nameInput ? (lang === 'vi' ? `Lộ trình của ${nameInput.toUpperCase()}.` : `${nameInput.toUpperCase()}'s Roadmap.`) : (lang === 'vi' ? 'BẢN ĐỒ DINH DƯỠNG' : 'NUTRITION MAP');
+                const subKey = lang === 'vi' ? 'Chi tiết dinh dưỡng dành riêng cho bạn.' : 'Nutrition details customized for you.';
+                document.getElementById('macro-res-greeting').innerText = greetingKey;
+                document.getElementById('macro-res-subtitle').innerText = subKey;
+            }
+
+            if (window.macroResults) {
+                document.getElementById('macro-res-bmr').innerText = formatNumber(window.macroResults.bmr);
+                document.getElementById('macro-res-tdee').innerText = formatNumber(window.macroResults.tdee);
+            }
+        }
+
+        document.getElementById('macroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('macro-name').value.trim();
+            const age = parseInt(document.getElementById('macro-age').value, 10);
+            const gender = document.getElementById('macro-gender').value;
+            const height = parseFloat(document.getElementById('macro-height').value);
+            const weight = parseFloat(document.getElementById('macro-weight').value);
+            const activity = parseFloat(document.getElementById('macro-activity').value);
+            const goal = document.getElementById('macro-goal').value;
+
+            let bmr = gender === 'male' ? (10 * weight) + (6.25 * height) - (5 * age) + 5 : (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            const tdee = bmr * activity;
+            let targetCalories = tdee;
+            let pPercent, cPercent, fPercent;
+
+            switch(goal) {
+                case 'cut': targetCalories = tdee - 400; pPercent = 0.40; cPercent = 0.35; fPercent = 0.25; break;
+                case 'maintain': targetCalories = tdee; pPercent = 0.30; cPercent = 0.40; fPercent = 0.30; break;
+                case 'bulk': targetCalories = tdee + 400; pPercent = 0.25; cPercent = 0.50; fPercent = 0.25; break;
+                case 'recomp': targetCalories = tdee - 100; pPercent = 0.40; cPercent = 0.30; fPercent = 0.30; break;
+            }
+            targetCalories = Math.max(targetCalories, 0);
+
+            const proteinGrams = Math.round((targetCalories * pPercent) / 4);
+            const carbsGrams = Math.round((targetCalories * cPercent) / 4);
+            const fatGrams = Math.round((targetCalories * fPercent) / 9);
+
+            const greetingKey = name ? (window.currentLang === 'vi' ? `Lộ trình của ${name.toUpperCase()}.` : `${name.toUpperCase()}'s Roadmap.`) : (window.currentLang === 'vi' ? 'BẢN ĐỒ DINH DƯỠNG' : 'NUTRITION MAP');
+            const subKey = window.currentLang === 'vi' ? 'Chi tiết dinh dưỡng dành riêng cho bạn.' : 'Nutrition details customized for you.';
+            document.getElementById('macro-res-greeting').innerText = greetingKey;
+            document.getElementById('macro-res-subtitle').innerText = subKey;
+            
+            window.macroResults = { bmr: bmr, tdee: tdee };
+            document.getElementById('macro-res-bmr').innerText = formatNumber(bmr);
+            document.getElementById('macro-res-tdee').innerText = formatNumber(tdee);
+            document.getElementById('macro-res-protein').innerText = proteinGrams;
+            document.getElementById('macro-res-carbs').innerText = carbsGrams;
+            document.getElementById('macro-res-fat').innerText = fatGrams;
+
+            if (macroChartInstance) {
+                macroChartInstance.data.labels = window.currentLang === 'vi' ? ['Protein', 'Carbs', 'Fat'] : ['Protein', 'Carbs', 'Fat'];
+                macroChartInstance.data.datasets[0].data = [targetCalories * pPercent, targetCalories * cPercent, targetCalories * fPercent];
+                macroChartInstance.data.datasets[0].gramsData = [proteinGrams, carbsGrams, fatGrams];
+                macroChartInstance.data.datasets[0].backgroundColor = ['#d4af37', '#e0e0e0', '#333333'];
+                macroChartInstance.data.datasets[0].borderWidth = 2;
+                macroChartInstance.data.datasets[0].borderColor = '#050505';
+                macroChartInstance.data.datasets[0].showLabels = true;
+                macroChartInstance.options.elements.center.text = formatNumber(targetCalories);
+                macroChartInstance.options.elements.center.color = '#d4af37';
+
+                macroChartInstance.options.plugins.tooltip = {
+                    enabled: true,
+                    callbacks: { label: function(context) { const grams = context.dataset.gramsData[context.dataIndex]; return ` ${context.label}: ${grams}g (${Math.round(context.raw)} kcal)`; } }
+                };
+
+                macroChartInstance.update();
+            }
+            document.querySelector('.macro-result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+</html>
+
