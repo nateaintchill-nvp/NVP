@@ -58,7 +58,7 @@
         /* Floating Controls */
         .floating-controls {
             position: fixed; bottom: 40px; left: 40px; right: 40px;
-            display: flex; justify-content: space-between; align-items: center; z-index: 999;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10000;
             pointer-events: none;
         }
         
@@ -682,7 +682,7 @@
             <button id="btn-vi" class="active" onclick="switchLang('vi')">VN</button>
             <button id="btn-en" onclick="switchLang('en')">EN</button>
         </div>
-        <a href="#booking" class="floating-cta" data-i18n="float-cta">Tư Vấn Ngay</a>
+        <a href="#booking" class="floating-cta" data-i18n="float-cta" onclick="closePricingModal()">Tư Vấn Ngay</a>
     </div>
 
     <div id="pricingModal" class="modal">
@@ -1048,5 +1048,4 @@
         function applyTranslations(doc, lang) {
             const elements = doc.querySelectorAll('[data-i18n]');
             elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-            
+                const key = el.getAttr
